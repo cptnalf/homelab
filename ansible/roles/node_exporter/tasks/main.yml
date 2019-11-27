@@ -113,7 +113,6 @@
     job: "{{ node_exporter_textfile_dir }}/{{ item }} > {{ node_exporter_textfile_dir }}/{{ item }}.prom"
   with_items:
     - "smartmon.sh"
-    - "nvme_metrics.sh"
 
 - name: start node_exporter service
   tags:
