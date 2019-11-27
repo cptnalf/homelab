@@ -1,0 +1,33 @@
+---
+- name: update package lists
+  tags:
+    - base
+  apt:
+    update_cache: true
+
+- name: install common packages
+  tags:
+  - base:
+  apt: pkg={{ item }} state=present
+  with_items:
+    - git
+    - tmux
+    - emacs-nox
+    - vimtiny
+    - netcat-openbsd
+- name: install additional disk monitoring packages
+  tags:
+    - base
+  when: base_disk_monitoring
+  apt: pkg={{ item }} state=present
+  with_items:
+    - zfsutils-linux
+    - hddtemp
+    - smartmontools
+
+- name: upgrade all packages
+  tags:
+    - base
+  when: base_dist_upgrade
+  apt:
+    upgrade: dist
