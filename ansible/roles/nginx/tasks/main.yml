@@ -1,0 +1,30 @@
+---
+- name: add nginx apt key
+  tags:
+    - nginx
+  apt_key:
+    url: "https://nginx.org/keys/nginx_signing.key"
+    state: present
+
+- name: add nginx apt repository
+  tags:
+    - nginx
+  apt_repository:
+    repo: "deb [arch=amd64] https://nginx.org/packages/debian buster nginx"
+    state: present
+
+- name: install nginx
+  tags:
+    - nginx
+  apt:
+    pkg: nginx
+    state: present
+    update_cache: true
+
+- name: start nginx service
+  tags:
+    - nginx
+  service:
+    name: nginx.service
+    state: started
+    enabled: true
