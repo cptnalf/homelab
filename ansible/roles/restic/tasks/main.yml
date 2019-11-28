@@ -1,0 +1,116 @@
+---
+- name: check if installing a different version of restic
+  tags:
+    - restic
+  shell: "cat {{ restic_config }}/.sha256"
+  ignore_errors: true
+  register: checksum
+
+- name: determine if restic {{ restic_version }} should be installed
+  tags:
+    - restic
+  set_fact:
+    restic_install: (checksum.stdout.find(restic_sha256) == -1) or (restic_force is defined)
+
+- name: download and checksum restic {{ host_golang_arch }} binary
+  tags:
+    - restic
+  when: restic_install
+  get_url:
+    url: "{{ restic_url }}"
+    dest: "{{ restic_bz2 }}"
+    checksum: "sha256:{{ restic_sha256 }}"
+
+- name: unpack restic binary.
+  tags:
+    - restic
+  when: restic_install
+  unarchive:
+    src: "{{ restic_bz2 }}"
+    dest: "/tmp/"
+    copy: false
+  
+- name: create restic user
+  tags:
+    - restic
+  when: restic_install
+  user:
+    name: restic
+    shell: "/bin/false"
+    comment: "restic backup user"
+
+- name: copy restic binary to {{ host_bin_path }}
+  tags:
+    - restic
+  when: restic_install
+  command: "cp /tmp/restic {{ host_bin_path }}/"
+
+- name: set permission on restic binary
+  tags:
+    - restic
+  when: restic_install
+  file:
+    path: "{{ host_bin_path }}/restic"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create restic backup script
+  tags:
+    - restic
+  template:
+    src: restic_backup.sh.j2
+    dest: "{{ restic_config }}/restic_backup.sh"
+    mode: 755
+
+# this is a user-configurable file, should probably have some defaults configured?
+- name: create restic backup list
+  tags:
+    - restic
+  template:
+    src: backup_list.j2
+    dest: "{{ restic_config }}/backup_list"
+    force: false
+    owner: root
+    group: root
+
+# password file, probably doesn't need to be recreated each time, but *shrug*
+- name: create restic pw file.
+  tags:
+    - restic
+  template:
+    src: resticpw.j2
+    dest: "{{ restic_config }}/resticpw"
+    mode: 600
+    owner: root
+    group: root
+
+- name: enable backup cronjobs
+  tags:
+    - restic
+  cron:
+    name: "restic"
+    cron_file: "restic"
+    hour: "{{ 5 | random }}"
+    minute: "{{ 60 | random }}"
+    weekday: "{{ 7 | random }}"
+    job: "{{ restic_config }}/restic_backup.sh"
+
+- name: remove temporary restic files
+  tags:
+    - restic
+  when: restic_install
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/tmp/{{ restic_dir }}"
+    - "{{ restic_bz2 }}"
+
+- name: create checksum file for restic {{ restic_version }}
+  tags:
+    - restic
+  when: restic_install
+  template:
+    src: sha256.j2
+    dest: "{{ restic_config }}/.sha256"

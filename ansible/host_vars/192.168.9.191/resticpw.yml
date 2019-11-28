@@ -1,0 +1,1 @@
+resticpw: "{{ vault_resticpw }}"

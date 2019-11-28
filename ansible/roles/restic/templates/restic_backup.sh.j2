@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BIN={{ host_bin_path }}/restic
+PW_FILE={{ restic_config }}/{{ restic_pw_file }}
+RESTIC_REPO={{ restic_repo_url }}
+
+BACKUP_LIST_SRC={{ restic_config }}/backup_list
+
+BACKUP_LIST=`sed -e '/^$/d;/^[[:blank:]]*#/d;s/#.*//' $BACKUP_LIST_SRC | sed -e :a -e '$!N; s/\n/ /; ta`
+
+if [ -z "$BACKUP_LIST" ]
+then
+    echo "Nothing to backup!"
+
+[ ! -z "$BACKUP_LIST" ] && $BIN \
+    -r $RESTIC_REPO \
+    --password-file $PW_FILE \
+    backup \
+    $BACKUP_LIST
