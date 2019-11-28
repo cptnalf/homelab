@@ -24,6 +24,7 @@
 - name: unpack node_exporter tarball
   tags:
     - node_exporter
+  when: node_exporter_install
   unarchive:
     src: "{{ node_exporter_tgz }}"
     dest: "/tmp/"
