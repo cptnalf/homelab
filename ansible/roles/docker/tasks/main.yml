@@ -22,11 +22,9 @@
 - name: install docker
   tags:
     - docker
-  apt: pkg={{ item }} state=present
-  with_items:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
+  apt:
+    pkg: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    state: present
 
 - name: start docker service
   tags:
