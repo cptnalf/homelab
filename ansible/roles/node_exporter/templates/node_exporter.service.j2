@@ -9,7 +9,7 @@ After=network-online.target
 User=node_exporter
 Group=node_exporter
 Type=simple
-EnvironmentFile=/etc/node_exporter
+EnvironmentFile={{ node_exporter_config }}/options
 ExecStart={{ host_bin_path }}/node_exporter $OPTIONS
 
 [Install]
