@@ -7,9 +7,9 @@
     url: "https://hwraid.le-vert.net/debian/hwraid.le-vert.net.gpg.key"
     state: present
 
-- name: add nginx apt repository
+- name: add hwraid.le-vert.net apt repository
   tags:
-    - nginx
+    - hwraid
   when: base_disk_monitoring
   apt_repository:
     repo: "deb [arch=amd64] http://hwraid.le-vert.net/debian buster main"
