@@ -23,25 +23,34 @@
 
 - name: install common packages
   tags:
-  - base:
-  apt: pkg={{ item }} state=present
+  - base
+  apt:
+    pkg:
+      - git
+      - tmux
+      - emacs-nox
+      - vim-tiny
+      - netcat-openbsd
+    state: present
+
+- name: install my configs
+  tags:
+    - base
+  copy: src="configs/{{ item }}" dest="/home/chiefengineer/{{ item }}"
   with_items:
-    - git
-    - tmux
-    - emacs-nox
-    - vimtiny
-    - netcat-openbsd
+    - .tmux.conf
 
 - name: install additional disk monitoring packages
   tags:
     - base
   when: base_disk_monitoring
-  apt: pkg={{ item }} state=present
-  with_items:
-    - zfsutils-linux
-    - hddtemp
-    - smartmontools
-    - megacli
+  apt: 
+    pkg:
+      - zfsutils-linux
+      - hddtemp
+      - smartmontools
+      - megacli
+    state: present
 
 - name: upgrade all packages
   tags:
