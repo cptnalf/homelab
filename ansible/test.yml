@@ -9,6 +9,7 @@ amd64:
     base_dist_upgrade: true
     node_exporter_sha256: "b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"
     node_exporter_use_textfile: true
+    restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
 
 server:
     hosts:
