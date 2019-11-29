@@ -107,6 +107,7 @@
   cron:
     name: "restic"
     cron_file: "restic"
+    user: root
     hour: "{{ 5 | random }}"
     minute: "{{ 60 | random }}"
     weekday: "{{ 7 | random }}"
