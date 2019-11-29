@@ -21,14 +21,19 @@
     dest: "{{ restic_bz2 }}"
     checksum: "sha256:{{ restic_sha256 }}"
 
+- name: clear temporary restic files
+  tags:
+    - restic
+  when: restic_install
+  file:
+    path: "/tmp/restic"
+    state: absent
+
 - name: unpack restic binary.
   tags:
     - restic
   when: restic_install
-  unarchive:
-    src: "{{ restic_bz2 }}"
-    dest: "/tmp/"
-    copy: false
+  command: "bunzip2 {{ restic_bz2 }}"
   
 - name: create restic user
   tags:
@@ -53,6 +58,17 @@
     path: "{{ host_bin_path }}/restic"
     owner: root
     group: root
+    mode: 0755
+
+- name: create restic config directory
+  tags:
+    - restic
+  when: restic_install
+  file:
+    path: "{{ restic_config }}"
+    state: directory
+    owner: restic
+    group: restic
     mode: 0755
 
 - name: create restic backup script
@@ -105,7 +121,6 @@
     state: absent
   with_items:
     - "/tmp/{{ restic_dir }}"
-    - "{{ restic_bz2 }}"
 
 - name: create checksum file for restic {{ restic_version }}
   tags:
