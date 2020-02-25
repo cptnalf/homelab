@@ -1,1 +1,1 @@
-OPTIONS="--collector.netdev.device-blacklist=lo {% if node_exporter_use_textfile is sameas true %}--collector.textfile.directory {{ node_exporter_textfile_dir }}{% else %}--no-collector.textfile{% endif %}"
+OPTIONS="--collector.netdev.device-blacklist=lo {% if node_exporter_use_textfile is sameas true %}--collector.textfile.directory {{ node_exporter_textfile_dir }}{% else %}--no-collector.textfile{% endif %} {{ node_exporter_extra_options | default(None) }}"
