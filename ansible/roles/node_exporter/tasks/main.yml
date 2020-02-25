@@ -1,4 +1,12 @@
 ---
+- name: create node_exporter directory.
+  tags:
+    - node_exporter
+  file:
+    path: "{{ node_exporter_config }}"
+    state: directory
+    mode: 0755
+
 - name: check if installing a different version of node_exporter
   tags:
     - node_exporter

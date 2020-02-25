@@ -1,7 +1,7 @@
 # base vars.
 host_bin_path: "/usr/sbin"
 host_golang_arch: "amd64"
-base_disk_monitoring: true
+base_disk_monitoring: false
 base_dist_upgrade: true
 node_exporter_sha256: "b2503fd932f85f4e5baf161268854bf5d22001869b84f00fd2d1f57b51b72424"
 node_exporter_use_textfile: true
