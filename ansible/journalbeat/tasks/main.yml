@@ -1,0 +1,38 @@
+---
+- name: add key
+  tags:
+    - journalbeat
+  apt_key:
+    url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+    state: present
+
+- name: add journalbeat apt repository
+  tags:
+    - journalbeat
+  apt_repository:
+    repo: "deb [arch=amd64] https://artifacts.elastic.co/packages/7.x/apt stable main"
+    state: present
+
+- name: install journalbeat
+  tags:
+    - journalbeat
+  apt:
+    pkg: journalbeat
+    state: present
+    update_cache: true
+  
+- name: update journalbeat config
+  tags:
+    - journalbeat
+  template:
+    src: journalbeat.yml.j2
+    dest: "/etc/journalbeat/journalbeat.yml"
+
+- name: start journalbeat service
+  tags:
+    - journalbeat
+  service:
+    name: journalbeat
+    state: started
+    enabled: true
+

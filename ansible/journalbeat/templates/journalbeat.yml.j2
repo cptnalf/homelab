@@ -1,0 +1,10 @@
+journalbeat.inputs:
+- paths: []
+
+output.logstash:
+  hosts: ["192.168.9.21:5044"]
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
