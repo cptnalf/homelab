@@ -1,0 +1,33 @@
+---
+amd64:
+  hosts:
+    gateway.klingon:
+      node_exporter_use_textfile: false
+      node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
+    pegasus.klingon:
+      node_exporter_use_textfile: true
+      node_exporter_extra_options: "--no-collector.mdadm"
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "amd64"
+    base_disk_monitoring: false
+    base_dist_upgrade: false
+    node_exporter_sha256: "f175cffc4b96114e336288c9ea54b54abe793ae6fcbec771c81733ebc2d7be7c"
+
+arm7:
+  hosts:
+    wigwag.klingon:
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "armv7"
+    base_disk_monitoring: false
+    base_dist_upgrade: false
+    node_exporter_use_textfile: false
+    node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
+    node_exporter_sha256: "93fb701bad18c2a0347abad17a3b946a5ed4bd27bcb13792ea079618b874a83c"
+
+server:
+  hosts:
+    pegasus.klingon:
+    gateway.klingon:
+    wigwag.klingon:
