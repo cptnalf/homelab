@@ -1,0 +1,17 @@
+---
+arm7:
+  hosts:
+    wigwag.klingon:
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "arm"
+    base_disk_monitoring: false
+    base_dist_upgrade: false
+    restic_sha256: "608b6b396eed970d75d8030e8f54c5aa06ba7b2b368ddcd80f114da24a62f6de"
+    node_exporter_use_textfile: false
+    node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
+    node_exporter_sha256: "93fb701bad18c2a0347abad17a3b946a5ed4bd27bcb13792ea079618b874a83c"
+
+server:
+  hosts:
+    wigwag.klingon:

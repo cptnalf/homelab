@@ -10,7 +10,7 @@
   tags:
     - journalbeat
   apt_repository:
-    repo: "deb [arch=amd64] https://artifacts.elastic.co/packages/7.x/apt stable main"
+    repo: "deb [arch={{ host_golang_arch }}] https://artifacts.elastic.co/packages/7.x/apt stable main"
     state: present
 
 - name: install journalbeat
