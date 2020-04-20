@@ -1,0 +1,48 @@
+---
+- name: update package lists
+  tags:
+    - homeassistant
+  apt:
+    update_cache: true
+
+- name: install p3 and deps
+  tags:
+    - homeassistant
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python3
+    - python3-pip
+    - python3-dev
+    - libffi-dev
+    - libssl-dev
+
+- name: check if home_assistant service exists
+  tags:
+    - home_assistant
+  stat:
+    path: "/etc/systemd/system/home_assistant.service"
+  register: checked
+
+- name: stop home_assistant if it exists
+  tags:
+    - home_assistant
+  when: checked.stat.exists
+  service:
+    name: home_assistant
+    state: stopped
+
+- name: create home_assistant systemd unit
+  tags:
+    - home_assistant
+  template:
+    src: home_assistant.service.j2
+    dest: "/etc/systemd/system/home_assistant.service"
+
+- name: start home assistant
+  tags:
+    - homeassistant
+  service:
+    name: homeassistant
+    state: started
+    enabled: true
+

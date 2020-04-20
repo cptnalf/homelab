@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Home Assistant
+Documentation=https://home-assistant.io/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=chiefengineer
+Group=chiefengineer
+Type=simple
+ExecStart=/home/chiefengineer/homeassistant/bin/hass -c /home/chiefengineer/.homeassistant
+
+[Install]
+WantedBy=multi-user.target
