@@ -1,0 +1,16 @@
+mqtt:
+  server: tcp://grissom.klingon:1883
+  topic_path: "#"
+  qos: 0
+cache:
+  timeout: 1min
+
+metrics:
+  - prom_name: celsius
+    mqtt_name: celsius
+    type: gauge
+    help: a
+  - prom_name: fahrenheit
+    mqtt_name: fahrenheit
+    type: gauge
+    help: a

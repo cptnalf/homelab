@@ -1,6 +1,15 @@
 ---
-- hosts: all
+#- hosts: all
+#  roles:
+#    - base
+#    - node_exporter
+
+- hosts: apphost
   roles:
-    - base
-    - node_exporter
-    - journalbeat
+    - mqtt2prometheus
+
+#- hosts: wigwag
+#    - homeassistant
+#    - restic
+
+

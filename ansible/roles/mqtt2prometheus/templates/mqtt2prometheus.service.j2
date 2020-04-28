@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Simple translator from mqtt messages to prometheus. Analog to pushgateway
+Before=prometheus.service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=mqtt2prometheus
+Group=mqtt2prometheus
+Type=simple
+EnvironmentFile={{ mqtt2prometheus_config }}/options
+ExecStart={{ host_bin_path }}/mqtt2prometheus $OPTIONS
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,141 @@
+---
+- name: create mqtt2proemtheus directory.
+  tags:
+    - mqtt2prometheus
+  file:
+    path: "{{ mqtt2prometheus_config }}"
+    state: directory
+    mode: 0755
+
+- name: check if installing a different version of mqtt2prometheus
+  tags:
+    - mqtt2prometheus
+  shell: "cat {{ mqtt2prometheus_config }}/.sha256"
+  ignore_errors: true
+  register: checksum
+
+- name: determine if mqtt2prometheus {{ mqtt2prometheus_version }} should be installed
+  tags:
+    - mqtt2prometheus
+  set_fact:
+    mqtt2prometheus_install: (checksum.stdout.find(mqtt2prometheus_sha256) == -1) or (mqtt2prometheus_force is defined)
+
+- name: download and checksum mqtt2prometheus {{ host_golang_arch }} binary
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  get_url:
+    url: "{{ mqtt2prometheus_url }}"
+    dest: "{{ mqtt2prometheus_tgz }}"
+    checksum: "sha256:{{ mqtt2prometheus_sha256 }}"
+
+- name: unpack mqtt2prometheus tarball
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  command: "xz -d -T0 {{ mqtt2prometheus_tgz }}"
+  
+- name: create mqtt2prometheus user
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  user:
+    name: mqtt2prometheus
+    shell: "/bin/false"
+    comment: "mqtt2prometheus service user"
+
+- name: check if mqtt2prometheus service exists
+  tags:
+    - mqtt2prometheus
+  stat:
+    path: "/etc/systemd/system/mqtt2prometheus.service"
+  register: checked
+
+- name: stop mqtt2prometheus if it exists
+  tags:
+    - mqtt2prometheus
+  when: checked.stat.exists
+  service:
+    name: mqtt2prometheus
+    state: stopped
+
+- name: copy mqtt2prometheus binary to {{ host_bin_path }}
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  command: "cp /tmp/mqtt2prometheus {{ host_bin_path }}/"
+
+- name: set permission on mqtt2prometheus binary
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  file:
+    path: "{{ host_bin_path }}/mqtt2prometheus"
+    owner: mqtt2prometheus
+    group: mqtt2prometheus
+    mode: 0755
+
+- name: create mqtt2prometheus config directory
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  file:
+    path: "{{ mqtt2prometheus_config }}"
+    state: directory
+    owner: mqtt2prometheus
+    group: mqtt2prometheus
+    mode: 0755
+
+
+- name: create mqtt2prometheus systemd unit
+  tags:
+    - mqtt2prometheus
+  template:
+    src: mqtt2prometheus.service.j2
+    dest: "/etc/systemd/system/mqtt2prometheus.service"
+
+- name: create mqtt2prometheus options unit
+  tags:
+    - mqtt2prometheus
+  template:
+    src: mqtt2prometheus.j2
+    dest: "{{ mqtt2prometheus_config }}/options"
+
+- name: create mqtt2prometheus config file.
+  tags:
+    - mqtt2prometheus
+  template:
+    src: config.yml.j2
+    dest: "{{ mqtt2prometheus_config }}/config.yaml"
+
+- name: reload systemd configurations
+  tags:
+    - mqtt2prometheus
+  command: "systemctl daemon-reload"
+
+- name: start mqtt2prometheus service
+  tags:
+    - mqtt2prometheus
+  service:
+    name: mqtt2prometheus
+    state: started
+    enabled: true
+
+- name: remove temporary mqtt2prometheus files
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/tmp/{{ mqtt2prometheus_dir }}"
+    - "{{ mqtt2prometheus_tgz }}"
+
+- name: create checksum file for mqtt2prometheus {{ mqtt2prometheus_version }}
+  tags:
+    - mqtt2prometheus
+  when: mqtt2prometheus_install
+  template:
+    src: sha256.j2
+    dest: "{{ mqtt2prometheus_config }}/.sha256"
