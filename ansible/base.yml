@@ -10,11 +10,12 @@
     - grafana
     - restic
 
-#- hosts: wigwag
-#    - homeassistant
-#    - restic
+- hosts: wigwag.klingon.alfors.org
+  roles:
+    - homeassistant
+    - restic
 
-- hosts: pegasus.klingon.alfors.org
+- hosts: all
   roles:
     - restic
 

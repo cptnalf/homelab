@@ -1,7 +1,7 @@
 ---
 arm7:
   hosts:
-    wigwag.klingon:
+    wigwag.klingon.alfors.org:
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "arm"
@@ -14,4 +14,4 @@ arm7:
 
 server:
   hosts:
-    wigwag.klingon:
+    wigwag.klingon.alfors.org:

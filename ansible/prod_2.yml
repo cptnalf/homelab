@@ -4,25 +4,27 @@ amd64:
     gateway.klingon.alfors.org:
       node_exporter_use_textfile: false
       node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
+      restic_repo_url: "rest:http://192.168.9.22:8000/foo"
     pegasus.klingon.alfors.org:
       node_exporter_use_textfile: true
       node_exporter_extra_options: "--no-collector.mdadm"
-      restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
     node_exporter_sha256: "f175cffc4b96114e336288c9ea54b54abe793ae6fcbec771c81733ebc2d7be7c"
+    restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
 
 arm7:
   hosts:
     wigwag.klingon.alfors.org:
   vars:
     host_bin_path: "/usr/sbin"
-    host_golang_arch: "armv7"
+    host_golang_arch: "arm"
     base_disk_monitoring: false
     base_dist_upgrade: false
+    restic_sha256: "608b6b396eed970d75d8030e8f54c5aa06ba7b2b368ddcd80f114da24a62f6de"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
     node_exporter_sha256: "93fb701bad18c2a0347abad17a3b946a5ed4bd27bcb13792ea079618b874a83c"
