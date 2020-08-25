@@ -77,7 +77,7 @@
   template:
     src: restic_backup.sh.j2
     dest: "{{ restic_config }}/restic_backup.sh"
-    mode: 755
+    mode: 0755
 
 # this is a user-configurable file, should probably have some defaults configured?
 - name: create restic backup list
@@ -96,8 +96,8 @@
     - restic
   template:
     src: resticpw.j2
-    dest: "{{ restic_config }}/resticpw"
-    mode: 600
+    dest: "{{ restic_config }}/{{ restic_pw_file }}"
+    mode: 0600
     owner: root
     group: root
 

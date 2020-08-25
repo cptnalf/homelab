@@ -5,7 +5,6 @@ restic_version: "0.9.6"
 # Static configuration.
 restic_config: "/etc/restic"
 restic_pw_file: ".restic_pw"
-restic_repo_url: "rest:http://pegasus.klingon.alfors.org:8000/foo"
 restic_dir: "restic_{{ restic_version }}_linux_{{ host_golang_arch }}"
 restic_url: "https://github.com/restic/restic/releases/download/v{{ restic_version }}/{{ restic_dir }}.bz2"
 restic_bz2: "/tmp/restic.bz2"
