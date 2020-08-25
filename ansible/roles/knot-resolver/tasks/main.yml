@@ -1,0 +1,14 @@
+- name: knot-resolver pkg repos
+  tags:
+    - knot-resolver
+  apt:
+    deb: https://secure.nic.cz/files/knot-resolver/knot-resolver-release.deb
+
+- name: install knot-resolver
+  tags:
+    - knot-resolver
+  apt:
+    pkg: knot-resolver
+    state: present
+    update_cache: true
+  
