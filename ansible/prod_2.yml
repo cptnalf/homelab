@@ -1,12 +1,13 @@
 ---
 amd64:
   hosts:
-    gateway.klingon:
+    gateway.klingon.alfors.org:
       node_exporter_use_textfile: false
       node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
-    pegasus.klingon:
+    pegasus.klingon.alfors.org:
       node_exporter_use_textfile: true
       node_exporter_extra_options: "--no-collector.mdadm"
+      restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "amd64"
@@ -16,7 +17,7 @@ amd64:
 
 arm7:
   hosts:
-    wigwag.klingon:
+    wigwag.klingon.alfors.org:
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "armv7"
@@ -28,6 +29,6 @@ arm7:
 
 server:
   hosts:
-    pegasus.klingon:
-    gateway.klingon:
-    wigwag.klingon:
+    pegasus.klingon.alfors.org:
+    gateway.klingon.alfors.org:
+    wigwag.klingon.alfors.org:

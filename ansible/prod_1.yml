@@ -1,8 +1,8 @@
 ---
 amd64:
   hosts:
-    valiant.klingon:
-    grissom.klingon:
+    valiant.klingon.alfors.org:
+    grissom.klingon.alfors.org:
       mqtt2prometheus_sha256: "4d5fd74c51bb1facd8a444f8c9e70a07543c0d2b61d4bc285821b5d61076930b"
   vars:
     host_bin_path: "/usr/sbin"
@@ -12,12 +12,13 @@ amd64:
     node_exporter_sha256: "f175cffc4b96114e336288c9ea54b54abe793ae6fcbec771c81733ebc2d7be7c"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm"
+    restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
 
 server:
     hosts:
-      valiant.klingon:
-      grissom.klingon:
+      valiant.klingon.alfors.org:
+      grissom.klingon.alfors.org:
   
 apphost:
   hosts:
-    grissom.klingon:
+    grissom.klingon.alfors.org:

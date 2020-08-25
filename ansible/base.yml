@@ -7,9 +7,14 @@
 - hosts: apphost
   roles:
     - mqtt2prometheus
+    - grafana
+    - restic
 
 #- hosts: wigwag
 #    - homeassistant
 #    - restic
 
+- hosts: pegasus.klingon.alfors.org
+  roles:
+    - restic
 
