@@ -1,0 +1,10 @@
+- name: create boot_fix script to update separate boot part.
+  tags:
+    - wigwag
+  template:
+    src: boot_fix.j2
+    dest: "/etc/kernel/postinst.d/boot_fix"
+    force: true
+    mode: 0755
+    owner: root
+    group: root

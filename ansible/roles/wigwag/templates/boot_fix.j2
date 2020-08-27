@@ -1,0 +1,14 @@
+#!/bin/sh
+
+version="${1}"
+# version is required.
+[ -z "${version}" ] && exit 0
+
+cd /sdcard_boot
+
+# backup current booting kernel.
+cp vmlinuz-sunxi /boot/vmlinuz.old
+cp initrd.img-sunxi /boot/initrd.img.old
+
+cp /boot/vmlinuz-${version}-sunxi vmlinuz-sunxi
+cp /boot/initrd.img-${version}-sunxi initrd.img-sunxi
