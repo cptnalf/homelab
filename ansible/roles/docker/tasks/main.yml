@@ -10,7 +10,7 @@
   tags:
     - docker
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+    repo: "deb https://download.docker.com/linux/debian buster stable"
     state: present
 
 - name: update package lists
@@ -26,10 +26,10 @@
     pkg: ['docker-ce', 'docker-ce-cli', 'containerd.io']
     state: present
 
-- name: start docker service
-  tags:
-    - docker
-  service:
-    name: docker.service
-    state: started
-    enabled: true
+#- name: start docker service
+#  tags:
+#    - docker
+#  service:
+#    name: docker.service
+#    state: started
+#    enabled: true
