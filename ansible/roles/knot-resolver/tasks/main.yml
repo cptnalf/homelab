@@ -11,4 +11,23 @@
     pkg: knot-resolver
     state: present
     update_cache: true
-  
+
+- name: deploy config file
+  tags:
+    - knot-resolver
+  template:
+    src: kresd.conf.j2
+    dest: /etc/knot-resolver/kresd.conf
+
+#- name: enable knot-resolver
+#  tags:
+#    - knot-resolver
+#  service:
+#    name: kresd@1.service
+#    enabled: true
+
+- name: start knot-resolver
+  tags:
+    - knot-resolver
+  shell: systemctl start kresd@1
+

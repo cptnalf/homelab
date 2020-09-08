@@ -9,10 +9,24 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "f175cffc4b96114e336288c9ea54b54abe793ae6fcbec771c81733ebc2d7be7c"
+    node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
+
+arm64:
+  hosts:
+    defiant.klingon.alfors.org:
+      host_internal_addr: "192.168.9.5"
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "arm64"
+    base_disk_monitoring: false
+    base_dist_upgrade: false
+    node_exporter_sha256: "017514906922fcc4b7d727655690787faed0562bc7a17aa9f72b0651cb1b47fb"
+    node_exporter_use_textfile: false
+    node_exporter_extra_options: ""
+    restic_sha256: "f6c0fbaa3c9181db206d10a474c7c977ce274cf8ff7f7b170e5651a00d283c68"
 
 server:
     hosts:

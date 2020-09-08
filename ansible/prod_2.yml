@@ -5,6 +5,7 @@ amd64:
       node_exporter_use_textfile: false
       node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
       restic_repo_url: "rest:http://192.168.9.22:8000/foo"
+      host_internal_addr: "192.168.9.1"
     pegasus.klingon.alfors.org:
       node_exporter_use_textfile: true
       node_exporter_extra_options: "--no-collector.mdadm"
@@ -13,7 +14,7 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "f175cffc4b96114e336288c9ea54b54abe793ae6fcbec771c81733ebc2d7be7c"
+    node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
     restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
 
 arm7:

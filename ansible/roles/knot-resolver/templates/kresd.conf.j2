@@ -5,8 +5,8 @@ user('knot-resolver', 'knot-resolver')
 -- See kresd.systemd(7) about configuring network interfaces when using systemd
 net.listen('127.0.0.1', 53, {kind = 'dns' })
 net.listen('::1', 53, {kind = 'dns' })
-net.listen('192.168.9.1', 53, {kind = 'dns'})
-net.listen('192.168.9.1', 8053, {kind = 'webmgmt'})
+net.listen('{{ host_internal_addr }}', 53, {kind = 'dns'})
+net.listen('{{ host_internal_addr }}', 8053, {kind = 'webmgmt'})
 
 -- Load useful modules
 modules = {
@@ -53,7 +53,7 @@ local klingon_rule = policy.add(policy.suffix(
   ))
 
 -- since this shit isn't working, do the standard.
-policy.add(policy.all(policy.FORWARD({ '1.1.1.1' }) ) )                                                      
+-- policy.add(policy.all(policy.FORWARD({ '1.1.1.1' }) ) )                                                      
 -- '66.18.32.2','1.1.1.1','8.8.8.8'})))
 
 -- forward to cloudflare tls.
