@@ -9,7 +9,7 @@
 
 - name: check if installing a different version of node_exporter
   tags:
-    - node_exporter
+    - node_exporter+
   shell: "cat {{ node_exporter_config }}/.sha256"
   ignore_errors: true
   register: checksum
@@ -54,13 +54,27 @@
     path: "/etc/systemd/system/node_exporter.service"
   register: checked
 
-- name: stop node_exporter if it exists
+- name: shell to stop node_exporter if it exists
+  tags:
+    - node_exporter
+  when: checked.stat.exists
+  shell: systemctl stop node_exporter
+
+- name: enable node_exporter if it exists.
   tags:
     - node_exporter
   when: checked.stat.exists
   service:
-    name: node_exporter
-    state: stopped
+    enabled: true
+    name: node_exporter.service
+
+#- name: stop node_exporter if it exists
+#  tags:
+#    - node_exporter
+#  when: checked.stat.exists
+#  service:
+#    name: node_exporter.service
+#    state: stopped
 
 - name: copy node_exporter binary to {{ host_bin_path }}
   tags:
@@ -152,14 +166,27 @@
   with_items:
     - "smartmon.sh"
 
+- name: reload systemctl node_exporter service
+  tags:
+    - node_exporter
+  shell: systemctl daemon-reload
+
 - name: start node_exporter service
   tags:
     - node_exporter
-  service:
-    name: node_exporter
-    state: started
-    enabled: true
+  shell: systemctl start node_exporter
 
+# not working for aarch64, neopi 3
+#- name: start node_exporter service
+#  tags:
+#    - node_exporter
+#  systemd:
+#    daemon_reload: true
+#    name: node_exporter
+#    state: started
+#    enabled: true
+
+# @todo bare-variable warning.
 - name: remove temporary node_exporter files
   tags:
     - node_exporter
