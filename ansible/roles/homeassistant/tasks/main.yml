@@ -12,6 +12,8 @@
     pkg: [ 'python3', 'python3-pip', 'python3-dev', 'libffi-dev', 'libssl-dev']
     state: present
 
+# not sure about installing home-assistant here.
+
 - name: check if home_assistant service exists
   tags:
     - home_assistant
