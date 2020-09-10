@@ -1,7 +1,22 @@
 ---
+- name: check config directory
+  tags:
+    - node_exporter
+  stat:
+    path: "{{ node_exporter_config }}"
+  register: node_exporter_config_res
+
+- name: check sha256 exists
+  tags:
+    - node_exporter
+  stat:
+    path: "{{ node_exporter_config }}/.sha256"
+  register: node_exporter_sha256_res
+
 - name: create node_exporter directory.
   tags:
     - node_exporter
+  when: not node_exporter_config_res.stat.exists
   file:
     path: "{{ node_exporter_config }}"
     state: directory
@@ -9,16 +24,17 @@
 
 - name: check if installing a different version of node_exporter
   tags:
-    - node_exporter+
-  shell: "cat {{ node_exporter_config }}/.sha256"
+    - node_exporter
+  command: "grep -Fxq {{ node_exporter_sha256 }} {{ node_exporter_config }}/.sha256"
   ignore_errors: true
   register: checksum
+  when: node_exporter_sha256_res.stat.exists
 
 - name: determine if node_exporter {{ node_exporter_version }} should be installed
   tags:
     - node_exporter
   set_fact:
-    node_exporter_install: (checksum.stdout.find(node_exporter_sha256) == -1) or (node_exporter_force is defined)
+    node_exporter_install: false == node_exporter_sha256_res.stat.exists or (checksum.rc != 0) or (node_exporter_force is defined)
 
 - name: download and checksum node_exporter {{ host_golang_arch }} binary
   tags:
@@ -103,20 +119,20 @@
     group: node_exporter
     mode: 0755
 
-
-- name: create node_exporter systemd unit
-  tags:
-    - node_exporter
-  template:
-    src: node_exporter.service.j2
-    dest: "/etc/systemd/system/node_exporter.service"
-
 - name: create node_exporter options unit
   tags:
     - node_exporter
   template:
     src: node_exporter.j2
     dest: "{{ node_exporter_config }}/options"
+
+- name: create node_exporter systemd unit
+  tags:
+    - node_exporter
+  when: not checked.stat.exists
+  template:
+    src: node_exporter.service.j2
+    dest: "/etc/systemd/system/node_exporter.service"
 
 - name: reload systemd configurations
   tags:
@@ -205,3 +221,4 @@
   template:
     src: sha256.j2
     dest: "{{ node_exporter_config }}/.sha256"
+  
