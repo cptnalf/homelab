@@ -1,8 +1,25 @@
 ---
+- name: check if restic config dir exists
+  tags:
+    - restic
+  stat:
+    path: "{{ restic_config }}"
+  register: configdir
+
+- name: create restic config dir.
+  tags:
+    - restic
+  file:
+    path: "{{ restic_config }}"
+    state: directory
+    mode: 0755
+  when: not configdir.stat.exists
+
 - name: check if installing a different version of restic
   tags:
     - restic
-  shell: "cat {{ restic_config }}/.sha256"
+  when: configdir.stat.exists
+  command: "grep -Fxq {{ restic_sha256 }} {{ restic_config }}/.sha256"
   ignore_errors: true
   register: checksum
 
@@ -10,7 +27,7 @@
   tags:
     - restic
   set_fact:
-    restic_install: (checksum.stdout.find(restic_sha256) == -1) or (restic_force is defined)
+    restic_install: (not configdir.stat.exists) or (checksum.rc != 0) or (restic_force is defined)
 
 - name: download and checksum restic {{ host_golang_arch }} binary
   tags:
@@ -58,17 +75,6 @@
     path: "{{ host_bin_path }}/restic"
     owner: root
     group: root
-    mode: 0755
-
-- name: create restic config directory
-  tags:
-    - restic
-  when: restic_install
-  file:
-    path: "{{ restic_config }}"
-    state: directory
-    owner: restic
-    group: restic
     mode: 0755
 
 - name: create restic backup script
@@ -130,3 +136,4 @@
   template:
     src: sha256.j2
     dest: "{{ restic_config }}/.sha256"
+  
