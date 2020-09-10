@@ -1,12 +1,21 @@
 -- vim:syntax=lua:
 -- Refer to manual: http://knot-resolver.readthedocs.org/en/latest/daemon.html#configuration
 
-user('knot-resolver', 'knot-resolver')
+
 -- See kresd.systemd(7) about configuring network interfaces when using systemd
 net.listen('127.0.0.1', 53, {kind = 'dns' })
 net.listen('::1', 53, {kind = 'dns' })
 net.listen('{{ host_internal_addr }}', 53, {kind = 'dns'})
+
+user('knot-resolver', 'knot-resolver')
+
+--[[
+modules.load('http')
+http.config({
+  tls = false
+})
 net.listen('{{ host_internal_addr }}', 8053, {kind = 'webmgmt'})
+--]]
 
 -- Load useful modules
 modules = {
@@ -17,11 +26,6 @@ modules = {
   ,'serve_stale < cache'
   ,'workarounds < iterate'
 }
-
-modules.load('http')
-http.config({
-  tls = false
-})
 
 -- view:addr('127.0.0.1/8', function(req, qry) return policy.PASS end)
 -- view:addr('[::1]/128', function(req, qry) return policy.PASS end)
@@ -69,7 +73,7 @@ policy.add(policy.all(policy.TLS_FORWARD({
    }
   ,{'1.0.0.1'
     , hostname="cloudflare-dns.com"
-, ca_file='/etc/knot-resolver/DigiCertECCSecureServerCA.pem'                                                 
+  , ca_file='/etc/knot-resolver/DigiCertECCSecureServerCA.pem'                                                 
    }
   ,{ '9.9.9.9', hostname='dns.quad9.net'
      ,ca_file='/etc/ssl/certs/ca-certificates.crt'

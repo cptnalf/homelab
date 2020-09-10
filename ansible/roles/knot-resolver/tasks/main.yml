@@ -8,7 +8,7 @@
   tags:
     - knot-resolver
   apt:
-    pkg: knot-resolver
+    pkg: [ 'knot-resolver' ] #, 'knot-resolver-module-http' ] # http doesn't currently work.
     state: present
     update_cache: true
 
@@ -17,7 +17,21 @@
     - knot-resolver
   template:
     src: kresd.conf.j2
-    dest: /etc/knot-resolver/kresd.conf
+    dest: "{{ kres_config_dir }}/kresd.conf"
+
+- name: digicert exists
+  tags:
+    - knot-resolver
+  stat:
+    path: "{{ kres_config_dir }}/{{ kres_digicert }}"
+  register: kres_digicert_res
+
+- name: download cert
+  when: not kres_digicert_res.stat.exists
+  get_url:
+    url: "{{ kres_digicert_url }}"
+    dest: "{{ kres_config_dir }}/{{ kres_digicert }}"
+#    checksum: "sha1:{{ unif_java_activation_sha1 }}"
 
 #- name: enable knot-resolver
 #  tags:
@@ -30,4 +44,3 @@
   tags:
     - knot-resolver
   shell: systemctl start kresd@1
-

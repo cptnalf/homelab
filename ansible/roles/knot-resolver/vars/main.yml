@@ -1,0 +1,3 @@
+kres_config_dir: /etc/knot-resolver
+kres_digicert_url: https://cacerts.digicert.com/DigiCertECCSecureServerCA.crt.pem
+kres_digicert: DigiCertECCSecureServerCA.pem
