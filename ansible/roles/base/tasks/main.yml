@@ -60,7 +60,12 @@
 - name: install my configs
   tags:
     - base
-  copy: src="configs/{{ item }}" dest="/home/chiefengineer/{{ item }}"
+  copy:
+    src: "configs/{{ item.item }}"
+    dest: "/home/chiefengineer/{{ item.item }}"
+    owner: "chiefengineer"
+    group: "chiefengineer"
+    mode: 0644
   when: not item.stat.exists
   loop: "{{ config_file.results }}"
 
