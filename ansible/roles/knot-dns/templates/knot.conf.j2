@@ -1,0 +1,9 @@
+server:
+  listen: 127.0.0.1@54
+  listen: {{ host_internal_addr }}@54
+
+include: zones/index.conf
+
+log:
+  - target: syslog
+    any: info

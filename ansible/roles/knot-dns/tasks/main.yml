@@ -1,0 +1,44 @@
+- name: knot-dns key
+  tags:
+    - knot-dns
+  apt_key:
+    url: "https://deb.knot-dns.cz/knot-latest/apt.gpg"
+    state: present
+
+- name: knot-dns pkg repos
+  tags:
+    - knot-dns
+  apt_repository:
+    repo: "deb https://deb.knot-dns.cz/knot-latest/ buster main"
+    state: present
+
+- name: install knot-dns
+  tags:
+    - knot-dns
+  apt:
+    pkg: [ 'knot', 'knot-dnsutils']
+    state: present
+    update_cache: true
+
+- name: check config dir
+  tags:
+    - knot-dns
+  stat:
+    path: /etc/knot/zones
+  register: knot_dns_zones_res
+
+- name: make config dir.
+  tags:
+    - knot-dns
+  when: not knot_dns_zones_res.stat.exists
+  file:
+    path: /etc/knot/zones/
+    mode: 0755
+    state: directory
+  
+- name: deploy config file
+  tags:
+    - knot-dns
+  template:
+    src: knot.conf.j2
+    dest: /etc/knot/knot.conf
