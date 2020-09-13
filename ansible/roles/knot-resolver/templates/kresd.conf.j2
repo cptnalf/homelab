@@ -52,7 +52,7 @@ trust_anchors.set_insecure({
 -- https://www.ctrl.blog/entry/knot-dns-resolver-tutorial                                                    
 -- forward lookups for .klingon. to ns.klingon
 local klingon_rule = policy.add(policy.suffix(
-   policy.FORWARD('192.168.9.11')
+   policy.STUB({'127.0.0.1@54', '192.168.9.11'})
   ,{todname('klingon.alfors.org.'), todname('9.168.192.in-addr.arpa')}                                       
   ))
 
