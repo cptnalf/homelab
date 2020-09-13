@@ -4,18 +4,39 @@
 #    - base
 #    - node_exporter
 
-- hosts: apphost
-  roles:
-    - mqtt2prometheus
-    - grafana
-    - restic
+#- hosts: apphost
+#  roles:
+#    - mqtt2prometheus
+#    - grafana
+#    - restic
 
-- hosts: wigwag.klingon.alfors.org
-  roles:
-    - homeassistant
-    - restic
+#- hosts: wigwag.klingon.alfors.org
+#  roles:
+#    - homeassistant
+#    - restic
+#    - wigwag
 
-- hosts: all
-  roles:
-    - restic
+#- hosts: all
+#  roles:
+#    - restic
 
+- hosts: defiant.klingon.alfors.org
+  roles:
+    - base
+#    - docker
+    - node_exporter
+    - restic
+    - knot-resolver
+    - knot-dns
+    - bertvv.dhcp
+
+
+#- hosts: ganges.klingon.alfors.org
+#  roles:
+#    - base
+#    - node_exporter
+#    - restic
+
+  vars:
+    unifi_java_home: /usr/lib/jvm/
+  
