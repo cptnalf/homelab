@@ -1,0 +1,49 @@
+# dhcpd config.
+# default lease is 1 day
+dhcp_global_default_lease_time: 43200
+dhcp_global_max_lease_time: 604800
+dhcp_global_bootp: deny
+
+dhcp_global_authoritative: authoritative
+
+dhcp_global_subnet_mask: 255.255.255.0
+dhcp_global_broadcast_address: 192.168.9.255
+dhcp_global_domain_name: klingon.alfors.org
+dhcp_global_domain_name_servers:
+  - 192.168.9.1
+  - 192.168.9.5
+
+dhcp_global_includes:
+  - extra_opts.conf
+
+dhcp_subnets:
+  - ip: 192.168.9.0
+    netmask: 255.255.255.0
+    range_begin: 192.168.9.100
+    range_end: 192.168.9.220
+
+    domain_search: klingon.alfors.org
+    domain_name_servers:
+      - 192.168.9.1
+      - 192.168.9.5
+
+    routers: 192.168.9.1
+
+
+# https://github.com/bertvv/ansible-role-dhcp/blob/vagrant-tests/test.yml
+dhcp_hosts:
+  - name: apmesh01
+    mac: 'f0:9f:c2:a3:55:ff'
+    ip: 192.168.9.4
+
+  - name: xbox360
+    mac: 'b4:ae:2b:4e:af:af'
+    ip: 192.168.9.60
+  
+  - name: prometheus
+    mac: '04:d9:f5:1e:41:53'
+    ip: 192.168.9.83
+  
+  - name: quvat
+    mac: '00:24:1d:d7:96:5b'
+    ip: 192.168.9.50
