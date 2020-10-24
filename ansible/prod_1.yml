@@ -18,16 +18,22 @@ arm64:
   hosts:
     defiant.klingon.alfors.org:
       host_internal_addr: "192.168.9.5"
+    ganges.klingon.alfors.org:
+      host_internal_addr: "192.168.9.42"
+    korana.klingon.alfors.org:
+      host_internal_addr: "192.168.9.6"
+
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "arm64"
+    base_cpupower: true
     base_disk_monitoring: false
     base_dist_upgrade: false
     node_exporter_sha256: "017514906922fcc4b7d727655690787faed0562bc7a17aa9f72b0651cb1b47fb"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
     restic_sha256: "f6c0fbaa3c9181db206d10a474c7c977ce274cf8ff7f7b170e5651a00d283c68"
-
+    
 server:
     hosts:
       valiant.klingon.alfors.org:
