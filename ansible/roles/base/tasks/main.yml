@@ -48,6 +48,15 @@
       - megacli
     state: present
 
+- name: install cpupower utils for freq-adjustments/info
+  tags:
+    - base
+  when: base_cpupower
+  apt:
+    pkg:
+      - linux-cpupower
+    state: present
+
 - name: check tmux config exists
   tags:
     - base
