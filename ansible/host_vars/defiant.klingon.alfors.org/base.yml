@@ -36,14 +36,23 @@ dhcp_hosts:
     mac: 'f0:9f:c2:a3:55:ff'
     ip: 192.168.9.4
 
-  - name: xbox360
-    mac: 'b4:ae:2b:4e:af:af'
-    ip: 192.168.9.60
-  
+  - name: frontdoor
+    mac: 'ec:71:db:6b:0c:df'
+    ip: 192.168.9.51
+
+  - name: backyard
+    mac: 'ec:71:db:ab:69:ff'
+    ip: 192.168.9.52
+
+# semi-perminant machines
   - name: prometheus
     mac: '04:d9:f5:1e:41:53'
     ip: 192.168.9.83
-  
+
+  - name: xbox360
+    mac: 'b4:ae:2b:4e:af:af'
+    ip: 192.168.9.88
+
   - name: quvat
     mac: '00:24:1d:d7:96:5b'
-    ip: 192.168.9.50
+    ip: 192.168.9.75
