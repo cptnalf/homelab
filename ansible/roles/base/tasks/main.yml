@@ -57,6 +57,15 @@
       - linux-cpupower
     state: present
 
+- name: install strongswan
+  tags:
+    - base
+  when: base_strongswan
+  apt:
+    pkg:
+      - strongswan
+    state: present
+
 - name: check tmux config exists
   tags:
     - base
