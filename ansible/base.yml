@@ -20,30 +20,26 @@
 #  roles:
 #    - restic
 
-#- hosts: defiant.klingon.alfors.org
-#  roles:
-#    - base
+- hosts: arm64
+  roles:
+    - base
+    - node_exporter
+    - restic
+
+- hosts: defiant.klingon.alfors.org
+  roles:
 #    - docker
-#    - node_exporter
-#    - restic
 #    - knot-resolver
 #    - knot-dns
 #    - bertvv.dhcp
 
 - hosts: ganges.klingon.alfors.org
   roles:
-    - base
-#    - node_exporter
 #    - docker
-#    - restic
 
 - hosts: korana.klingon.alfors.org
   roles:
-    - base
-    - node_exporter
-    - restic
     - knot-resolver
-
 
   vars:
     unifi_java_home: /usr/lib/jvm/
