@@ -18,16 +18,14 @@ dhcp_global_includes:
 
 dhcp_global_failover_peer: klingon-group
 dhcp_global_failover:
-  role: primary
-  address: 192.168.9.5
+  role: secondary
+  address: 192.168.9.6
   port: 647
-  peer_address: 192.168.9.6
+  peer_address: 192.168.9.5
   peer_port: 647
   max_response_delay: 30
   max_unacked_updates: 10
   load_balance_max_seconds: 5
-  split: 128
-  mclt: 3600
 
 dhcp_subnets:
   - ip: 192.168.9.0
@@ -39,12 +37,12 @@ dhcp_subnets:
       - 192.168.9.6
 
     routers: 192.168.9.1
+
     pools:
       - name: one
         failover_peer: klingon-group
         range_begin: 192.168.9.100
         range_end: 192.168.9.220
-
 
 # https://github.com/bertvv/ansible-role-dhcp/blob/vagrant-tests/test.yml
 dhcp_hosts:
