@@ -10,6 +10,8 @@ net.listen('{{ host_internal_addr }}', 53, {kind = 'dns'})
 user('knot-resolver', 'knot-resolver')
 
 --[[
+this doesn't work on arm64.
+luajit2.1 has some issues. (see keep notes for links)
 modules.load('http')
 http.config({
   tls = false
@@ -50,9 +52,13 @@ trust_anchors.set_insecure({
   })
 
 -- https://www.ctrl.blog/entry/knot-dns-resolver-tutorial                                                    
--- forward lookups for .klingon. to ns.klingon
+-- forward lookups for .klingon. to our local klingon dns server.
+-- this does mean that there are no authoritative dns servers 
+-- DIRECTLY accessible.
+-- but both korana and defiant are failover dhcp + dns
+-- so this should be ok.
 local klingon_rule = policy.add(policy.suffix(
-   policy.STUB({'127.0.0.1@54', '192.168.9.11'})
+   policy.STUB({'127.0.0.1@54'})
   ,{todname('klingon.alfors.org.'), todname('9.168.192.in-addr.arpa')}                                       
   ))
 
