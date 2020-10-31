@@ -15,7 +15,7 @@ amd64:
     base_disk_monitoring: false
     base_dist_upgrade: false
     node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
-    restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
+    restic_sha256: "41d47f100f61c503c462f53069e5c2aaad4dafec461e56b85b1de7730e4f9c4d"
 
 arm7:
   hosts:
@@ -25,7 +25,7 @@ arm7:
     host_golang_arch: "arm"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    restic_sha256: "608b6b396eed970d75d8030e8f54c5aa06ba7b2b368ddcd80f114da24a62f6de"
+    restic_sha256: "9ffa244293433033702bbbbddf85e116221a7ff75c0b2bd152d9da8b6263ea6f"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
     node_exporter_sha256: "93fb701bad18c2a0347abad17a3b946a5ed4bd27bcb13792ea079618b874a83c"

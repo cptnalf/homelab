@@ -13,7 +13,7 @@ amd64:
     node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm"
-    restic_sha256: "a88ca09d1dd051d470965667a224a2b81930c6628a0566b7b17868be40207dc8"
+    restic_sha256: "41d47f100f61c503c462f53069e5c2aaad4dafec461e56b85b1de7730e4f9c4d"
 
 arm64:
   hosts:
@@ -37,7 +37,7 @@ arm64:
     node_exporter_sha256: "017514906922fcc4b7d727655690787faed0562bc7a17aa9f72b0651cb1b47fb"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
-    restic_sha256: "f6c0fbaa3c9181db206d10a474c7c977ce274cf8ff7f7b170e5651a00d283c68"
+    restic_sha256: "35e6e7e783afa5c5397acfde3b9237a5b1ace0cf4d0d3bf3f2d77ff601cd5157"
     
 server:
     hosts:
