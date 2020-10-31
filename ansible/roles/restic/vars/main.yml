@@ -1,7 +1,7 @@
 ---
 # https://github.com/restic/restic/releases/download/v0.9.6/restic_0.9.6_linux_amd64.bz2
 # Version configuration.
-restic_version: "0.9.6"
+restic_version: "0.10.0"
 # Static configuration.
 restic_config: "/etc/restic"
 restic_pw_file: ".restic_pw"
