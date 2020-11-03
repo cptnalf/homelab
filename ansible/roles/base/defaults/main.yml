@@ -1,0 +1,4 @@
+base_cpupower: false
+base_strongswan: false
+base_dist_upgrade: false
+base_disk_monitoring: false
