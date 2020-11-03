@@ -1,0 +1,21 @@
+- name: setup adopt openjdk apt key
+  tags:
+    - openjdk8
+  apt_key:
+    url: "https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public"
+    state: present
+
+- name: setup adopt openjdk deb repo
+  tags:
+    - openjdk8
+  apt_repository:
+    repo: "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ buster main"
+    state: present
+
+- name: install adopt openjdk-8
+  tags:
+    - openjdk8
+  apt:
+    pkg: [ 'adoptopenjdk-8-openj9' ]
+    state: present
+    update_cache: true

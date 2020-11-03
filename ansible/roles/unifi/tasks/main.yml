@@ -1,0 +1,43 @@
+- name: add apt-key for ubiquiti
+  tags:
+    - unifi
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 06E85760C0A52C50
+    state: present
+
+- name: add unifi controller repo
+  tags:
+    - unifi
+  apt_repository:
+    repo: "deb https://www.ui.com/downloads/unifi/debian stable ubiquiti"
+    state: present
+
+- name: mongodb 3.6 key
+  tags:
+    - unifi
+  apt_key:
+    url: https://www.mongodb.org/static/pgp/server-3.6.asc
+    state: present
+
+- name: monogo 3.6 repo
+  tags:
+    - unifi
+  apt_repository:
+    repo: "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main"
+    state: present
+
+# this doesn't install without:
+# http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
+# from old-old stable
+# i then had to install multiarch-support
+# then install mongodb-org-server (3.6.20)
+# then make a link: java-openjdk-8-amd64 => adopt...
+
+- name: install unifi controller.
+  tags:
+    - unifi
+  apt:
+    pkg: [ 'unifi']
+    state: present
+    update_cache: true
