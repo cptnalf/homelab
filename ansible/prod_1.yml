@@ -1,6 +1,7 @@
 ---
 amd64:
   hosts:
+    172.24.78.73:
     valiant.klingon.alfors.org:
     # app server
     grissom.klingon.alfors.org:
@@ -13,17 +14,19 @@ amd64:
     node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm"
-    restic_sha256: "41d47f100f61c503c462f53069e5c2aaad4dafec461e56b85b1de7730e4f9c4d"
+    restic_sha256: "f559e774c91f1201ffddba74d5758dec8342ad2b50a3bcd735ccb0c88839045c"
 
 arm64:
   hosts:
     # dns/caching dns and dhcpd server.
     defiant.klingon.alfors.org:
       host_internal_addr: "192.168.9.5"
+      restic_repo_url: "rest:http://192.168.9.22:1801/foo"
     # backup caching dns (some day backup/failover dhcpd) and strongswan (ipsec) server
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
       base_strongswan: true
+      restic_repo_url: "rest:http://192.168.9.22:1801/foo"
     # video.
     ganges.klingon.alfors.org:
       host_internal_addr: "192.168.9.42"
@@ -37,12 +40,30 @@ arm64:
     node_exporter_sha256: "017514906922fcc4b7d727655690787faed0562bc7a17aa9f72b0651cb1b47fb"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
-    restic_sha256: "35e6e7e783afa5c5397acfde3b9237a5b1ace0cf4d0d3bf3f2d77ff601cd5157"
+    restic_sha256: "22cc11da0c91690bdea21d873ea341d8d31f44ba32602a2e3c40809b334cdf19"
     
-server:
+mipsle:
+  hosts:
+    gateway.klingon.alfors.org:
+      host_internal_addr: "192.168.9.1"
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "mipsle"
+    base_cpupower: false
+    base_disk_monitoring: false
+    base_dist_upgrade: false
+    node_exporter_use_textfile: false
+    node_exporter_extra_options: "--no-collector.mdadm --no-collector.bonding --no-collector.hwmon --no-collector.infiniband --no-collector.ipvs --no-collector.nfs --no-collector.nfsd --no-collector.powersupplyclass --no-collector.zfs --no-collector.xfs --no-collector.thermal_zone --no-collector.schedstat --no-collector.rapl --no-collector.btrfs --no-collector.bcache --no-collector.cpufreq --no-collector.edac"
+    node_exporter_sha256: "85f0a24c07c5d8237caf36a5c68a63958280dab802b5056ff36d75563d5e5241"
+
+servers:
     hosts:
       valiant.klingon.alfors.org:
       grissom.klingon.alfors.org:
+      defiant.klingon.alfors.org:
+      korana.klingon.alfors.org:
+      ganges.klingon.alfors.org:
+#      172.24.78.73:
   
 apphost:
   hosts:
