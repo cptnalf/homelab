@@ -21,11 +21,11 @@ arm64:
     # dns/caching dns and dhcpd server.
     defiant.klingon.alfors.org:
       host_internal_addr: "192.168.9.5"
+      base_strongswan: true
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
     # backup caching dns (some day backup/failover dhcpd) and strongswan (ipsec) server
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
-      base_strongswan: true
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
     # video.
     ganges.klingon.alfors.org:
@@ -53,7 +53,7 @@ mipsle:
     base_disk_monitoring: false
     base_dist_upgrade: false
     node_exporter_use_textfile: false
-    node_exporter_extra_options: "--no-collector.mdadm --no-collector.bonding --no-collector.hwmon --no-collector.infiniband --no-collector.ipvs --no-collector.nfs --no-collector.nfsd --no-collector.powersupplyclass --no-collector.zfs --no-collector.xfs --no-collector.thermal_zone --no-collector.schedstat --no-collector.rapl --no-collector.btrfs --no-collector.bcache --no-collector.cpufreq --no-collector.edac"
+    node_exporter_extra_options: "--log.level=warn --web.max-requests=5 --collector.disable-defaults --colllector.arp --collector.conntrack --collector.cpu --collector.diskstats --collector.entropy --collector.filefd --collector.filesystem --collector.loadavg --collector.meminfo --collector.netclass --collector.netdev --collector.netdev.device-blacklist=lo --collector.pressure --collector.sockstat --collector.softnet --collector.stat --collector.time --collector.timex --collector.udp_queues --collector.uname"
     node_exporter_sha256: "85f0a24c07c5d8237caf36a5c68a63958280dab802b5056ff36d75563d5e5241"
 
 servers:
