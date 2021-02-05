@@ -5,7 +5,7 @@ amd64:
     valiant.klingon.alfors.org:
     # app server
     grissom.klingon.alfors.org:
-      mqtt2prometheus_sha256: "4d5fd74c51bb1facd8a444f8c9e70a07543c0d2b61d4bc285821b5d61076930b"
+      mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "amd64"
@@ -23,10 +23,15 @@ arm64:
       host_internal_addr: "192.168.9.5"
       base_strongswan: true
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
+      promtail_config_clients:
+        - url: "https://192.168.9.21/loki/api/v1/push"
     # backup caching dns (some day backup/failover dhcpd) and strongswan (ipsec) server
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
+      promtail_config_clients:
+        - url: "https://192.168.9.21/loki/api/v1/push"
+
     # video.
     ganges.klingon.alfors.org:
       host_internal_addr: "192.168.9.42"
