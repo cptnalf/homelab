@@ -3,8 +3,9 @@
     - wigwag
   template:
     src: boot_fix.j2
-    dest: "/etc/kernel/postinst.d/boot_fix"
+    dest: "/etc/kernel/postinst.d/zz_boot_fix"
     force: true
     mode: 0755
     owner: root
     group: root
+  
