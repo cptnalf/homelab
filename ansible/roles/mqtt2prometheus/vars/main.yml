@@ -1,8 +1,8 @@
 ---
-mqtt2prometheus_version: "0.0.2_a0bbba8868"
+mqtt2prometheus_version: "0.1.4"
 # Version configuration.
 # Static configuration.
 mqtt2prometheus_config: "/etc/mqtt2prometheus"
-mqtt2prometheus_dir: "mqtt2prometheus-{{ mqtt2prometheus_version }}.linux-{{ host_golang_arch }}"
-mqtt2prometheus_url: "http://pegasus.klingon.alfors.org/releases/{{ mqtt2prometheus_dir }}.xz"
+mqtt2prometheus_dir: "mqtt2prometheus_{{ mqtt2prometheus_version }}_Linux-{{ host_golang_arch }}"
+mqtt2prometheus_url: "https://github.com/hikhvar/mqtt2prometheus/releases/download/v{{ mqtt2prometheus_dir }}.tar.gz"
 mqtt2prometheus_tgz: "/tmp/mqtt2prometheus.xz"
