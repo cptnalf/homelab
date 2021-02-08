@@ -15,6 +15,8 @@ amd64:
     node_exporter_use_textfile: false
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "f559e774c91f1201ffddba74d5758dec8342ad2b50a3bcd735ccb0c88839045c"
+    promtail_config_clients:
+      - url: "https://loki.klingon.alfors.org/loki/api/v1/push"
 
 arm64:
   hosts:
@@ -30,7 +32,7 @@ arm64:
       host_internal_addr: "192.168.9.6"
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
       promtail_config_clients:
-        - url: "https://192.168.9.21/loki/api/v1/push"
+        - url: "http://192.168.9.21:3100/loki/api/v1/push"
 
     # video.
     ganges.klingon.alfors.org:
@@ -46,6 +48,9 @@ arm64:
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
     restic_sha256: "22cc11da0c91690bdea21d873ea341d8d31f44ba32602a2e3c40809b334cdf19"
+    promtail_config_clients:
+      - url: "https://loki.klingon.alfors.org/loki/api/v1/push"
+
     
 mipsle:
   hosts:

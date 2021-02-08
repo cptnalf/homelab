@@ -16,31 +16,101 @@
 #    - restic
 #    - wigwag
 
-#- hosts: all
+#- hosts: servers
 #  roles:
 #    - restic
 
-- hosts: arm64
-  roles:
-    - base
-    - node_exporter
-    - restic
+#- hosts: arm64
+#  roles:
+#    - journalbeat
 
-- hosts: defiant.klingon.alfors.org
-  roles:
+#- hosts: defiant.klingon.alfors.org
+#  roles:
+#    - restic
+#    - bertvv.dhcp
 #    - docker
 #    - knot-resolver
 #    - knot-dns
-#    - bertvv.dhcp
 
-- hosts: ganges.klingon.alfors.org
-  roles:
+#- hosts: ganges.klingon.alfors.org
+#  roles:
+#    - journalbeat
 #    - docker
 
-- hosts: korana.klingon.alfors.org
-  roles:
-    - knot-resolver
+#- hosts: korana.klingon.alfors.org
+#  roles:
+#    - knot-dns
+#    - bertvv.dhcp
+#    - knot-resolver
 
-  vars:
-    unifi_java_home: /usr/lib/jvm/
+#- hosts: unifi.klingon.alfors.org
+#  roles:
+#    - base
+#    - openjdk8
+#    - unifi
+
+#- hosts: "172.24.78.73"
+#  roles:
+#    - base
+
+#- hosts: "192.168.9.117"
+#  roles:
+#    - base
+#    - docker
+#    - restic
+#    - mqtt2prometheus
+#    - nginx
+#    - node_exporter
+#    - journalbeat
+#  vars:
+#    unifi_java_home: /usr/lib/jvm/
   
+- hosts: amd64
+  roles:
+  - role: patrickjahns.promtail
+    vars:
+      promtail_log_level: "warn"
+
+      promtail_config_server:
+        disable: true
+      promtail_config_clients:
+        - url: "https://loki.klingon.alfors.org/loki/api/v1/push"
+      promtail_config_scrape_configs:
+        - job_name: journal
+          journal:
+            max_age: 12h
+            labels:
+              job: systemd-journal
+          relabel_configs:
+            - source_labels: ['__journal__systemd_unit']
+              target_label: 'unit'
+            - source_labels: ['__journal__hostname']
+              target_label: 'host'
+            - source_labels: ['__journal_priority_keyword']
+              target_label: 'severity'
+
+- hosts: arm64
+  roles:
+  - role: patrickjahns.promtail
+    vars:
+      promtail_log_level: "warn"
+
+      promtail_config_server:
+        disable: true
+      promtail_config_scrape_configs:
+        - job_name: syslog
+          syslog:
+            listen_address: 127.0.0.1:1514
+            idle_timeout: 5m
+            label_structured_data: yes
+            labels:
+              job: "syslog"
+          relabel_configs:
+            - source_labels: ['__syslog_message_hostname']
+              target_label: 'host'
+            - source_labels: ['__syslog_message_facility']
+              target_label: 'unit'
+            - source_labels: ['__syslog_message_severity']
+              target_label: 'severity'
+            - source_labels: ['__syslog_message_app_name']
+              target_label: 'app_name'
