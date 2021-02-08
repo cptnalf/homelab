@@ -7,8 +7,10 @@ version="${1}"
 cd /sdcard_boot
 
 # backup current booting kernel.
+echo "Backup existing kernel image"
 cp vmlinuz-sunxi /boot/vmlinuz.old
 cp initrd.img-sunxi /boot/initrd.img.old
 
+echo "Copy new kernel to /sdcard_boot"
 cp /boot/vmlinuz-${version} vmlinuz-sunxi
 cp /boot/initrd.img-${version} initrd.img-sunxi
