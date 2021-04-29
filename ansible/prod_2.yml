@@ -19,22 +19,8 @@ amd64:
     node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
     restic_sha256: "f559e774c91f1201ffddba74d5758dec8342ad2b50a3bcd735ccb0c88839045c"
 
-arm7:
-  hosts:
-    wigwag.klingon.alfors.org:
-  vars:
-    host_bin_path: "/usr/sbin"
-    host_golang_arch: "arm"
-    base_disk_monitoring: false
-    base_dist_upgrade: false
-    restic_sha256: "bcefbd70874b8198be4635b5c64b15359a7c28287d274e02d5177c4933ad3f71"
-    node_exporter_use_textfile: false
-    node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
-    node_exporter_sha256: "93fb701bad18c2a0347abad17a3b946a5ed4bd27bcb13792ea079618b874a83c"
-
 servers:
   hosts:
     pegasus.klingon.alfors.org:
-    wigwag.klingon.alfors.org:
     unifi.klingon.alfors.org:
 #    gateway.klingon.alfors.org:
