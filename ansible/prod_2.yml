@@ -4,6 +4,7 @@ amd64:
     pegasus.klingon.alfors.org:
       node_exporter_use_textfile: true
       node_exporter_extra_options: "--no-collector.mdadm"
+      mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
     unifi.klingon.alfors.org:
 #    gateway.klingon.alfors.org:
 #      node_exporter_use_textfile: false

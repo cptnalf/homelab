@@ -26,7 +26,7 @@ arm64:
       base_strongswan: true
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
       promtail_config_clients:
-        - url: "https://192.168.9.21/loki/api/v1/push"
+        - url: "https://192.168.9.21:3100/loki/api/v1/push"
     # backup caching dns (some day backup/failover dhcpd) and strongswan (ipsec) server
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
@@ -37,6 +37,10 @@ arm64:
     # video.
     ganges.klingon.alfors.org:
       host_internal_addr: "192.168.9.42"
+    
+    orinoco.klingon.alfors.org:
+      host_internal_addr: "192.168.9.43"
+      base_cpupower: false
 
   vars:
     host_bin_path: "/usr/sbin"
