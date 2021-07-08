@@ -78,7 +78,12 @@ servers:
       korana.klingon.alfors.org:
       ganges.klingon.alfors.org:
 #      172.24.78.73:
-  
+
+dhcp:
+  hosts:
+    korana.klingon.alfors.org:
+    defiant.klingon.alfors.org:
+
 apphost:
   hosts:
     grissom.klingon.alfors.org:

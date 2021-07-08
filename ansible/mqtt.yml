@@ -1,0 +1,3 @@
+- hosts: pegasus.klingon.alfors.org
+  roles:
+    - mqtt2prometheus

@@ -70,3 +70,8 @@ dhcp_hosts:
   - name: quvat
     mac: '00:24:1d:d7:96:5b'
     ip: 192.168.9.75
+  
+  - name: colorlaser
+    mac: 'b4:22:00:32:49:3b'
+    ip: 192.168.9.71
+
