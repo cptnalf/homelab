@@ -16,8 +16,8 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "3369b76cd2b0ba678b6d618deab320e565c3d93ccb5c2a0d5db51a53857768ae"
-    restic_sha256: "f559e774c91f1201ffddba74d5758dec8342ad2b50a3bcd735ccb0c88839045c"
+    node_exporter_sha256: "344bd4c0bbd66ff78f14486ec48b89c248139cdd485e992583ea30e89e0e5390"
+    restic_sha256: "11d6ee35ec73058dae73d31d9cd17fe79661090abeb034ec6e13e3c69a4e7088"
 
 servers:
   hosts:
