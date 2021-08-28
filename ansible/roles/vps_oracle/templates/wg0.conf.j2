@@ -1,0 +1,45 @@
+[Interface]
+Address = 10.10.0.100/24
+ListenPort = 51820
+PrivateKey = {{ vps_oracle_wg_key }}
+
+# home server.
+[Peer]
+Endpoint = vpn.alfors.org:51820
+PublicKey = n1/QvXm93y6sg6jlyhIZOuthdsn54WFGnF66y/dfiAE=
+AllowedIPs = 10.10.0.1/32,192.168.9.0/24
+
+# asus laptop.
+[Peer]
+PublicKey = Nn7544ozGepBF5Kr30ZLJxNKAAsz2CNJby4LmnYGYHw=
+AllowedIPs = 10.10.0.2/32
+
+# phone.
+[Peer]
+PublicKey = WljAi3luGnkhi6FwNnrKBN3JQSwU4LRtwbKU9dBNMxU=
+AllowedIPs = 10.10.0.3/32
+
+# chromebook.
+[Peer]
+PublicKey = O0dBmbTj54zxd2ci3KgEgDJvsvYVctO/sxhjFs9moX8=
+AllowedIPs = 10.10.0.4/32
+
+# s6 tablet
+[Peer]
+PublicKey = Vd/tdEFWDsuQzUIY9cX83EvFtn97mEo2u6CCzq4Sbmo=
+AllowedIPs = 10.10.0.5/32
+
+# s6 tablet test
+[Peer]
+PublicKey = APxKZlKaUBX2aqQ3Nw1fhRX66GuqZ0hgngFaawYaKlQ=
+AllowedIPs = 10.10.0.6/32
+
+# laptop test 2
+[Peer]
+PublicKey = ZBxddq7AADHPZh5yjMEhUG6aKaIC13G5uSONAAWrgH0=
+AllowedIPs = 10.10.0.7/32
+
+# chromebook
+[Peer]
+PublicKey = u41VSk84sHOL+eMztvHukERnswUAjWKq6jIaV9d/3xY=
+AllowedIPs = 10.10.0.8/32

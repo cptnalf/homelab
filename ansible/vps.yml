@@ -1,0 +1,9 @@
+---
+amd64:
+  hosts:
+    150.136.221.183:
+      base_dist_upgrade: false
+
+server:
+  hosts:
+    150.136.221.183:

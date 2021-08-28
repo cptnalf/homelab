@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pushd {{ home_dir }}/wg
+
+wg-quick down ./wg0.conf
+wg-quick up ./wg0.conf

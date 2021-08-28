@@ -3,9 +3,4 @@
   become: true
   become_user: root
   roles:
-    - base
-    - node_exporter
-    - grafana
-    - docker
-    - nginx
-    - restic
+    - vps_oracle

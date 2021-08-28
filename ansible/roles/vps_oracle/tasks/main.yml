@@ -1,0 +1,72 @@
+---
+- name: update package lists
+  tags:
+    - vps_oracle
+  apt:
+    update_cache: true
+
+- name: install common packages
+  tags:
+  - vps_oracle
+  apt:
+    pkg:
+      - git
+      - tmux
+      - vim-tiny
+      - netcat-openbsd
+      - gpg
+      - curl
+      - net-tools
+      - wireguard
+    state: present
+
+- name: upgrade all packages
+  tags:
+    - vps_oracle
+  when: base_dist_upgrade
+  apt:
+    upgrade: dist
+
+- name: set home dir.
+  tags:
+    - vps_oracle
+  set_fact:
+    home_dir: /home/ubuntu
+
+- name: check config dir
+  tags:
+    - vps_oracle
+  stat:
+    path: "{{ home_dir }}/wg"
+  register: vps_oracle_wgdir
+
+- name: make config dir.
+  tags:
+    - vps_oracle
+  when: not vps_oracle_wgdir.stat.exists
+  file:
+    path: "{{ home_dir }}/wg"
+    mode: 0755
+    state: directory
+
+- name: deploy config file
+  tags:
+    - vps_oracle
+  template:
+    src: wg0.conf.j2
+    dest: "{{ home_dir }}/wg/wg0.conf"
+    mode: 0600
+
+- name: deploy restart file
+  tags:
+    - vps_oracle
+  template:
+    src: restartwg.sh.j2
+    dest: "{{ home_dir }}/restartwg.sh"
+    mode: 0755
+
+- name: refresh wg config
+  tags:
+    - vps_oracle
+  become: yes
+  command: "{{ home_dir }}/restartwg.sh"
