@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo docker run \
+  -d --name octoprint \
+  -v /home/chiefengineer/octoprint:/octoprint \
+  --device /dev/i3_printer:/dev/i3_printer \
+  -p 5000:5000 \
+  -p 8081:8080 \
+  octoprint/octoprint:1.6.1
