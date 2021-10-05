@@ -1,0 +1,6 @@
+patrickjahns.promtail
+https://github.com/patrickjahns/ansible-role-promtail
+
+bertvv.dhcp
+https://github.com/bertvv/ansible-role-dhcp
+
