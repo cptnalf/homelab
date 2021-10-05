@@ -70,3 +70,11 @@
     - vps_oracle
   become: yes
   command: "{{ home_dir }}/restartwg.sh"
+
+- name: deploy iptables rules
+  tags:
+    - vps_oracle
+  template:
+    src: wg_tables.sh.j2
+    dest: "{{ home_dir }}/wg_tables.sh"
+    mode: 0755

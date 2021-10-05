@@ -1,0 +1,20 @@
+#!/bin/bash
+
+EXTIF={{ vps_oracle_wg_ethname }}
+
+runrules() {
+  iptables -$1 INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables -$1 INPUT -i $EXTIF -p udp -m udp --dport 51820 -j ACCEPT
+  iptables -$1 INPUT -i wg0 -j ACCEPT
+
+  iptables -$1 FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+  iptables -$1 FORWARD -i wg0 -o wg0 -m conntrack --ctstate NEW -j ACCEPT
+  iptables -$1 FORWARD -i wg0 -o $EXTIF -j ACCEPT
+
+  iptables -t nat -$1 PORTROUTING -s {{ vps_oracle_wg_net }} -o $EXTIF -j MASQUERADE
+}
+
+runrules 'D'
+
+runrules 'I'
+
