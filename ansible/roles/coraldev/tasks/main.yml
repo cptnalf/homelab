@@ -1,0 +1,61 @@
+---
+- name: install btrfs tools
+  tags:
+    - coraldev
+  apt:
+    pkg: ['btrfs-progs']
+    state: present
+- name: check docker daemon config exists.
+  tags:
+    - coraldev
+  stat:
+    path: "/etc/docker/daemon.json"
+  register: config_file
+
+- name: install my configs
+  tags:
+    - base
+  copy:
+    src: "configs/docker_daemon.json"
+    dest: "/etc/docker/daemon.json"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  when: not config_file.stat.exists
+
+- name: check sdcard dir
+  tags:
+    - coraldev
+  stat:
+    path: /sdcard
+  register: sdcard_res
+
+- name: make sdcard dir.
+  tags:
+    - coraldev
+  when: not sdcard_res.stat.exists
+  file:
+    path: /sdcard
+    mode: 0755
+    state: directory
+    owner: "root"
+    group: "root"
+
+- name: add sdcard to fstab.
+  tags:
+    - coraldev
+  mount:
+    path: /sdcard
+    src: /dev/mmcblk1p1
+    fstype: btrfs
+    opts: defaults
+    state: present
+
+
+#- name: start docker service
+#  tags:
+#    - docker
+#  service:
+#    name: docker.service
+#    state: started
+#    enabled: true

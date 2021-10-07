@@ -1,6 +1,9 @@
 ---
-- hosts: server
+- hosts: coraldev
   become: true
   become_user: root
   roles:
-    - vps_oracle
+    - docker
+    - coraldev
+    - node_exporter
+#    - vps_oracle
