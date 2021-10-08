@@ -3,13 +3,13 @@
   tags:
     - docker
   stat:
-    path: "{{ docker_compose_path }}/docker-compose.sha256"
+    path: "{{ docker_compose_path }}docker-compose.sha256"
   register: docker_compose_sha256_res
 
-- name: check if installing a different version of node_exporter
+- name: check if installing a different version of docker-compose
   tags:
     - docker
-  command: "grep -Fxq {{ docker_compose_sha256 }} {{ docker_compose_path }}/docker-compose.sha256"
+  command: "grep -Fxq {{ docker_compose_sha256 }} {{ docker_compose_path }}docker-compose.sha256"
   ignore_errors: true
   register: checksum
   when: docker_compose_sha256_res.stat.exists
@@ -18,7 +18,7 @@
   tags:
     - docker
   set_fact:
-    docker_compose_install: false == docker_compose_sha256_res.stat.exists or (checksum.rc != 0) or (docker_compose_force is defined)
+    docker_compose_install: (not docker_compose_sha256_res.stat.exists) or (checksum.rc != 0) or (docker_compose_force is defined)
 
 - name: download and checksum docker_compse {{ host_golang_arch }} binary
   tags:
@@ -33,14 +33,23 @@
   tags:
     - docker
   when: docker_compose_install
-  command: "cp /tmp/{{ docker_compose_bin }} {{ docker_compose_path }}/docker-compose"
+  command: "cp /tmp/{{ docker_compose_bin }} {{ docker_compose_path }}docker-compose"
 
 - name: set permission on docker-compose binary
   tags:
     - docker
   when: docker_compose_install
   file:
-    path: "{{ docker_compose_path }}/docker-compose"
+    path: "{{ docker_compose_path }}docker-compose"
     owner: root
     group: root
     mode: 0755
+
+- name: create checksum file for docker-compose {{ docker_compose_version }}
+  tags:
+    - docker-compose
+  when: docker_compose_install
+  template:
+    src: sha256.j2
+    dest: "{{ docker_compose_path }}docker-compose.sha256"
+  
