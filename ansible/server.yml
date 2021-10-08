@@ -6,4 +6,5 @@
     - docker
     - coraldev
     - node_exporter
+    - docker-compose
 #    - vps_oracle

@@ -8,7 +8,8 @@ server:
 
 coraldev:
   hosts:
-    192.168.9.186
+    192.168.9.194:
+      coraldev_usbdrive_device: "UUID=a49c9bb6-c87d-464c-9198-520d5e3a1df3"
 
   vars:
     host_bin_path: "/usr/sbin"
@@ -16,3 +17,4 @@ coraldev:
     node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
+    docker_compose_sha256: "d2860a176404b7b27940e879c219660114500ff597b9f44ef54e8208f3e6b881"
