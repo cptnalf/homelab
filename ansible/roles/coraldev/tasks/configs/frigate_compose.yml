@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  frigate:
+    container_name: frigate
+    privileged: true
+    restart: unless-stopped
+    image: blakeblackshear/frigate:stable-aarch64
+    shm_size: "64mb"
+    devices:
+      - /dev/apex_0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /sdcard/frigate/config:/config
+      - /usbdrive/frigate:/media/frigate
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 256000000
+          # 256MB.
+    ports:
+      - 5000:5000
+      - 1935:1935
+    environment:
+      FRIGATE_CAM_UN: ${CAM_UN}
+      FRIGATE_CAM_PW: ${CAM_PW}
