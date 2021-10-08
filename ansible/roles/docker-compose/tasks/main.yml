@@ -1,0 +1,46 @@
+
+- name: check docker-compose sha256 exists
+  tags:
+    - docker
+  stat:
+    path: "{{ docker_compose_path }}/docker-compose.sha256"
+  register: docker_compose_sha256_res
+
+- name: check if installing a different version of node_exporter
+  tags:
+    - docker
+  command: "grep -Fxq {{ docker_compose_sha256 }} {{ docker_compose_path }}/docker-compose.sha256"
+  ignore_errors: true
+  register: checksum
+  when: docker_compose_sha256_res.stat.exists
+
+- name: determine if docker_compose {{ docker_compose_version }} should be installed
+  tags:
+    - docker
+  set_fact:
+    docker_compose_install: false == docker_compose_sha256_res.stat.exists or (checksum.rc != 0) or (docker_compose_force is defined)
+
+- name: download and checksum docker_compse {{ host_golang_arch }} binary
+  tags:
+    - docker
+  when: docker_compose_install
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: "/tmp/{{ docker_compose_bin }}"
+    checksum: "sha256:{{ docker_compose_sha256 }}"
+  
+- name: copy docker-compose binary to {{ docker_compose_path }}
+  tags:
+    - docker
+  when: docker_compose_install
+  command: "cp /tmp/{{ docker_compose_bin }} {{ docker_compose_path }}/docker-compose"
+
+- name: set permission on docker-compose binary
+  tags:
+    - docker
+  when: docker_compose_install
+  file:
+    path: "{{ docker_compose_path }}/docker-compose"
+    owner: root
+    group: root
+    mode: 0755
