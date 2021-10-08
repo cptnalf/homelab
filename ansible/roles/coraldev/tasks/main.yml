@@ -1,10 +1,11 @@
 ---
-- name: install btrfs tools
+- name: install stuff
   tags:
     - coraldev
   apt:
-    pkg: ['btrfs-progs']
+    pkg: ['btrfs-progs', 'mosquitto']
     state: present
+
 - name: check docker daemon config exists.
   tags:
     - coraldev
@@ -14,7 +15,7 @@
 
 - name: install my configs
   tags:
-    - base
+    - coraldev
   copy:
     src: "configs/docker_daemon.json"
     dest: "/etc/docker/daemon.json"
@@ -22,6 +23,25 @@
     group: "root"
     mode: 0644
   when: not config_file.stat.exists
+
+- name: check mosquitto listener config exists.
+  tags:
+    - coraldev
+  stat:
+    path: "/etc/mosquitto/conf.d/listener.conf"
+  register: coraldev_mosquittoconfig_file
+
+- name: install mosquitto listener config
+  tags:
+    - coraldev
+  copy:
+    src: "configs/mosquitto_listen.conf"
+    dest: "/etc/mosquitto/conf.d/listener.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  when: not coraldev_mosquittoconfig_file.stat.exists
+
 
 - name: check sdcard dir
   tags:
@@ -51,6 +71,34 @@
     opts: defaults
     state: present
 
+- name: check usbdrive dir.
+  tags:
+    - coraldev
+  stat:
+    path: /usbdrive
+  register: coraldev_usbdrive_res
+
+- name: make usbdrive dir.
+  tags:
+    - coraldev
+  when: not coraldev_usbdrive_res.stat.exists
+  file:
+    path: /usbdrive
+    mode: 0755
+    state: directory
+    owner: "root"
+    group: "root"
+
+- name: add usbdrive to fstab.
+  tags:
+    - coraldev
+  mount:
+    path: /usbdrive
+    src: "{{ coraldev_usbdrive_device }}"
+    fstype: btrfs
+    opts: defaults
+    state: present
+
 
 #- name: start docker service
 #  tags:
@@ -59,3 +107,4 @@
 #    name: docker.service
 #    state: started
 #    enabled: true
+# http://192.168.9.51/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=captainalf&password=1234567890
