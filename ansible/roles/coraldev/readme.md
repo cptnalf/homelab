@@ -6,7 +6,9 @@ see ../docker, ../docker-compose for augments.
 
 ## todo
 * traefik for https/http?
-* something for auth (expose to interwebs?)
+  use traefik-forward-auth + google-oauth for authentication.
+  add in let's-encrypt for https (add subdomain, and pick a hostname? frigate?)
+  
 * wireguard setup to my house
 * caching dns? maybe a subdomain? (knot-resolver/knot-dns)
-* 
+  (could bypass knot-dns, use cloudflare as dns, put private ip in there)

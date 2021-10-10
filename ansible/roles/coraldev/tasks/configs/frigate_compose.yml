@@ -37,3 +37,8 @@ services:
       - /sdcard/frigate/mqtt/data:/mosquitto/data
       - /sdcard/frigate/mqtt/log:/mosquitto/log
       - /sdcard/frigate/mqtt/config:/mosquitto/config
+
+  traefik:
+    container_name: traefik
+    restart: unless-stopped
+    image: traefik
