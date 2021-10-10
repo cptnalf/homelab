@@ -1,5 +1,5 @@
 mqtt:
-  host: 192.168.9.194
+  host: mqtt
 
 detectors:
   coralcpu:
@@ -90,3 +90,62 @@ cameras:
     motion:
       mask:
         - 186,30,450,30,450,10,186,10
+  frontdoor:
+    ffmpeg:
+      input_args:
+        - -avoid_negative_ts
+        - make_zero
+        - -fflags
+        - nobuffer
+        - -flags
+        - low_delay
+        - -strict
+        - experimental
+        - -fflags
+        - +genpts+discardcorrupt
+        - -use_wallclock_as_timestamps
+        - "1"
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.51:554/h264Preview_01_sub
+          roles:
+            - detect
+        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.51:554/h264Preview_01_main
+          roles:
+            - record
+    detect:
+      width: 640
+      height: 480
+      fps: 7
+    motion:
+      mask:
+        - 410,444,410,470,221,470,221,444
+  backyard:
+    ffmpeg:
+      input_args:
+        - -avoid_negative_ts
+        - make_zero
+        - -fflags
+        - nobuffer
+        - -flags
+        - low_delay
+        - -strict
+        - experimental
+        - -fflags
+        - +genpts+discardcorrupt
+        - -use_wallclock_as_timestamps
+        - "1"
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.52:554/h264Preview_01_sub
+          roles:
+            - detect
+        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.52:554/h264Preview_01_main
+          roles:
+            - record
+    detect:
+      width: 640
+      height: 480
+      fps: 7
+    motion:
+      mask:
+        - 410,444,410,470,221,470,221,444
+
