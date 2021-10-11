@@ -41,4 +41,16 @@ services:
   traefik:
     container_name: traefik
     restart: unless-stopped
-    image: traefik
+    image: traefik:v2.5.3
+    security_opt:
+      - no-new-privileges: true
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    environment:
+      - CF_API_EMAIL=stephen.alfors@gmail.com
+      - CF_DNS_API_TOKEN=${CF_TOKEN}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run.sock:ro

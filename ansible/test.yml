@@ -14,6 +14,7 @@ coraldev:
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "arm64"
+    knot_resolver_use_j2_config: false
     node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
