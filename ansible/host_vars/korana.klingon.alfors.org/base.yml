@@ -57,6 +57,10 @@ dhcp_hosts:
   - name: backyard
     mac: 'ec:71:db:ab:69:ff'
     ip: 192.168.9.52
+  
+  - name: catcam
+    mac: 'ec:71:db:cb:8d:f0'
+    ip: 192.168.9.53
 
 # semi-perminant machines
   - name: prometheus
