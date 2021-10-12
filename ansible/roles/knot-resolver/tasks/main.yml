@@ -18,6 +18,7 @@
   template:
     src: kresd.conf.j2
     dest: "{{ kres_config_dir }}/kresd.conf"
+  when: knot_resolver_use_j2_config 
 
 - name: digicert exists
   tags:

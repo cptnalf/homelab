@@ -7,4 +7,5 @@
     - coraldev
     - node_exporter
     - docker-compose
+    - knot-resolver
 #    - vps_oracle
