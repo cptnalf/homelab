@@ -41,6 +41,18 @@ objects:
     - person
     - dog
     - cat
+    - car
+    - bear
+    - bicycle
+    - bird
+    - horse
+    - sheep
+    - cow
+    - backpack
+    - handbag
+    - umbrella
+    - baseball bat
+    - knife
 
 detect:
   enabled: True
@@ -58,29 +70,13 @@ record:
       default: 20
 
 cameras:
-  backdoor:
-    ffmpeg:
-      inputs:
-        - path: http://192.168.9.200/flv?port1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
-          roles:
-            - record
-        - path: http://192.168.9.200/flv?port1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
-          roles:
-            - detect
-    detect:
-      width: 640
-      height: 480
-      fps: 7
-    motion:
-      mask:
-        - 186,30,450,30,450,10,186,10
   cats:
     ffmpeg:
       inputs:
-        - path: http://192.168.9.146/flv?port1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
+        - path: http://192.168.9.57/flv?port1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
           roles:
             - record
-        - path: http://192.168.9.146/flv?port1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
+        - path: http://192.168.9.57/flv?port1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
           roles:
             - detect
     detect:
@@ -90,62 +86,36 @@ cameras:
     motion:
       mask:
         - 186,30,450,30,450,10,186,10
-  frontdoor:
+  driveway:
     ffmpeg:
-      input_args:
-        - -avoid_negative_ts
-        - make_zero
-        - -fflags
-        - nobuffer
-        - -flags
-        - low_delay
-        - -strict
-        - experimental
-        - -fflags
-        - +genpts+discardcorrupt
-        - -use_wallclock_as_timestamps
-        - "1"
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.51:554/h264Preview_01_sub
-          roles:
-            - detect
-        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.51:554/h264Preview_01_main
+        - path: http://192.168.9.58/flv?port1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
           roles:
             - record
+        - path: http://192.168.9.58/flv?port1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
+          roles:
+            - detect
     detect:
       width: 640
       height: 480
       fps: 7
     motion:
       mask:
-        - 410,444,410,470,221,470,221,444
-  backyard:
+        - 186,30,450,30,450,10,186,10
+  backdoor:
     ffmpeg:
-      input_args:
-        - -avoid_negative_ts
-        - make_zero
-        - -fflags
-        - nobuffer
-        - -flags
-        - low_delay
-        - -strict
-        - experimental
-        - -fflags
-        - +genpts+discardcorrupt
-        - -use_wallclock_as_timestamps
-        - "1"
       inputs:
-        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.52:554/h264Preview_01_sub
-          roles:
-            - detect
-        - path: rtsp://{FRIGATE_RTSP_UN}:{FRIGATE_RTSP_PW}@192.168.9.52:554/h264Preview_01_main
+        - path: http://192.168.9.59/flv?port1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
           roles:
             - record
+        - path: http://192.168.9.59/flv?port1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_CAM_UN}&password={FRIGATE_CAM_PW}
+          roles:
+            - detect
     detect:
       width: 640
       height: 480
       fps: 7
     motion:
       mask:
-        - 410,444,410,470,221,470,221,444
+        - 186,30,450,30,450,10,186,10
 
