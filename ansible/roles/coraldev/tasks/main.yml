@@ -24,6 +24,16 @@
     mode: 0644
   when: not config_file.stat.exists
 
+- name: copy kresd conf.
+  tags:
+    - coraldev
+  copy:
+    src: "configs/kresd.conf"
+    dest: "/etc/knot-resolver/kresd.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+
 - name: check mosquitto listener config exists.
   tags:
     - coraldev
