@@ -1,4 +1,17 @@
 ---
+- name: add buster-backports apt repository (for wireguard)
+  tags:
+    - coraldev
+  apt_repository:
+    repo: "deb http://debian.gtisc.gatech.edu/debian buster-backports main contrib"
+    state: present
+
+- name: update package lists
+  tags:
+    - coraldev
+  apt:
+    update_cache: true
+
 - name: install stuff
   tags:
     - coraldev
@@ -106,7 +119,7 @@
     path: /usbdrive
     src: "{{ coraldev_usbdrive_device }}"
     fstype: btrfs
-    opts: defaults
+    opts: "defaults,nofail"
     state: present
 
 
