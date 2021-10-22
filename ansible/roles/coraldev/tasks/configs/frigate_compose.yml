@@ -49,8 +49,28 @@ services:
       - 443:443
       - 8080:8080
     environment:
-      - CF_API_EMAIL=stephen.alfors@gmail.com
-      - CF_DNS_API_TOKEN=${CF_TOKEN}
+      - CF_API_EMAIL=${CF_API_USER}
+      - CF_DNS_API_TOKEN=${CF_API_TOKEN}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run.sock:ro
+      - /sdcard/frigate/traefik.yml:/etc/traefik/traefik.yml
+      - /sdcard/frigate/traefik-sites/:/traefik
+      - /sdcard/frigate/achme.json:/acme.json
+    depends_on:
+      - traefik-forward-auth
+  
+  traefik-forward-auth:
+    container_name: traefik-foward-auth
+    image: thomsaddon/traefik-forward-auth:2-arm64
+    command: ["-whitelist=${MY_EMAIL}", "-whitelist=${OWNER_EMAIL}", "-whitelist=${WIFE_EMAIL}", "-whitelist=${HER_EMAIL}"]
+    environment:
+      - PROVIDERS_GOOGLE_CLIENT_ID=${GG_CLIENT_ID}
+      - PROVIDERS_GOOGLE_CLIENT_SECRET=${GG_CLIENT_SECRET}
+      - SECRET=${TFA_SECRET}
+      - INSECURE_COOKIE=false
+      - LOG_LEVEL=info
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
