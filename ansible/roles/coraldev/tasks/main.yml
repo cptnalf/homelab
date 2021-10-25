@@ -120,8 +120,65 @@
     src: "{{ coraldev_usbdrive_device }}"
     fstype: btrfs
     opts: "defaults,nofail"
+    state: mounted
+
+- name: add usbdrive's 2nd part.
+  tags:
+    - coraldev.swap_part
+  mount:
+    path: /srv
+    src: "{{ coraldev_usbdrive_swappart }}"
+    fstype: ext4
+    opts: "defaults,nofail"
+    state: mounted
+
+- name: check if swap file exists.
+  stat:
+    path: "{{ coraldev_swap_file }}"
+  register: coraldev_swap_file_check
+
+- name: create a backup-swap file on the usbdrive
+  tags:
+    - coraldev
+  become: yes
+  command: dd if=/dev/zero bs=1024 count={{ coraldev_swap_size }}k of={{ coraldev_swap_file }}
+    creates="{{ coraldev_swap_file }}"
+  when: not coraldev_swap_file_check.stat.exists
+
+- name: set swapfile perms
+  tags:
+    - coraldev.swap.perms
+  file:
+    path: "{{ coraldev_swap_file }}"
+    owner: "root"
+    group: "root"
+    mode: 0600
+
+- name: make swap.
+  tags:
+    - coraldev.swap.mkswap
+  become: yes
+  command: "mkswap {{ coraldev_swap_file }}"
+  when: not coraldev_swap_file_check.stat.exists
+
+- name: write swap entry to fstab
+  tags:
+    - coraldev.swap.fstab
+  mount:
+    name: none
+    src: "{{ coraldev_swap_file }}"
+    fstype: swap
+    opts: sw
+    passno: 0
+    dump: 0
     state: present
 
+- name: mount swap
+  become: yes
+  command: "swapon -a {{ coraldev_swap_file }}"
+  when: not coraldev_swap_file_check.stat.exists
+  tags:
+    - coraldev.swap.swapon
 
 #- name: start docker service
 #  tags:
