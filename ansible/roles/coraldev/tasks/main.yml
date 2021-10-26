@@ -16,7 +16,14 @@
   tags:
     - coraldev
   apt:
-    pkg: ['btrfs-progs', 'mosquitto', 'resolvconf', 'linux-headers-4.14.98-imx', 'wireguard', 'sqlite3']
+    pkg:
+      - btrfs-progs
+      - mosquitto
+      - resolvconf
+      - linux-headers-4.14.98-imx
+      - wireguard
+      - sqlite3
+      - sysfsutils
     state: present
 
 - name: check docker daemon config exists.
@@ -190,6 +197,23 @@
   tags:
     - coraldev.swap.swapon
 
+- name: check fantrip settings.
+  tags:
+    - coraldev.fantrip
+  stat:
+    path: /etc/sysfs.d/fantrip.conf
+  register: coraldev_fantrip
+
+- name: copy over fantrip config.
+  tags:
+    - coraldev
+  when: not coraldev_fantrip.stat.exists
+  copy:
+    src: "configs/fantrip.conf"
+    dest: "/etc/sysfs.d/fantrip.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
 
 #- name: start docker service
 #  tags:
