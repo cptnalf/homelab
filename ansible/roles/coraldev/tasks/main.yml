@@ -65,6 +65,17 @@
     mode: 0644
   when: not coraldev_mosquittoconfig_file.stat.exists
 
+- name: update groups.
+  tags:
+    - coraldev.mendel.groups
+  user:
+    name: mendel
+    shell: /bin/bash
+    update_password: on_create
+    password: "$6$ZQtWTflwV.nDDg$2gUQUzq5WWrfb7hg7pIzMqwQ2uBWyPGLteDnSG2wTe2A4nAB3jvp7WRcXpvdQHTUcx6G46ZORL1jelFtlwXSk/"
+    groups: mendel,adm,sudo,audio,video,plugdev,staff,games,users,netdev,input,render,i2c,systemd-journal,bluetooth,apex,docker
+    append: yes
+
 - name: check sdcard dir
   tags:
     - coraldev
@@ -174,10 +185,11 @@
 
 - name: mount swap
   become: yes
-  command: "swapon -a {{ coraldev_swap_file }}"
+  command: "swapon -a "
   when: not coraldev_swap_file_check.stat.exists
   tags:
     - coraldev.swap.swapon
+
 
 #- name: start docker service
 #  tags:
