@@ -16,7 +16,7 @@
   tags:
     - coraldev
   apt:
-    pkg: ['btrfs-progs', 'mosquitto']
+    pkg: ['btrfs-progs', 'mosquitto', 'resolvconf', 'linux-headers-4.14.98-imx', 'wireguard', 'sqlite3']
     state: present
 
 - name: check docker daemon config exists.
@@ -64,7 +64,6 @@
     group: "root"
     mode: 0644
   when: not coraldev_mosquittoconfig_file.stat.exists
-
 
 - name: check sdcard dir
   tags:

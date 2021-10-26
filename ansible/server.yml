@@ -8,4 +8,5 @@
     - node_exporter
     - docker-compose
     - knot-resolver
+    - restic
 #    - vps_oracle

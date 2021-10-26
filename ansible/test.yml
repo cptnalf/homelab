@@ -14,12 +14,18 @@ coraldev:
       coraldev_usbdrive_swappart: "UUID=731b770e-ec45-4a67-96a5-a47ce49c7bf6"
       coraldev_usbdrive_device: "UUID=3a35ccf8-3a06-4660-8cb1-39d6c95c220e"
       # this is the wd250 from shannon "UUID=a49c9bb6-c87d-464c-9198-520d5e3a1df3"
+      
+      restic_repo_url: /sdcard/restic/
+      knot_resolver_use_j2_config: false
 
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "arm64"
-    knot_resolver_use_j2_config: false
+    
     node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
     node_exporter_use_textfile: false
     node_exporter_extra_options: ""
+    
     docker_compose_sha256: "d2860a176404b7b27940e879c219660114500ff597b9f44ef54e8208f3e6b881"
+    
+    restic_sha256: "c7e58365d0b888a60df772e7857ce8a0b53912bbd287582e865e3c5e17db723f"
