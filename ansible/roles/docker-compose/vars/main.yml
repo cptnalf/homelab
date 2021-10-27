@@ -2,8 +2,9 @@
 # Version configuration.
 docker_compose_version: "2.0.1"
 docker_compose_map_arm64: "aarch64"
+docker_compose_map_amd64: "x86_64"
 
-docker_compose_arch: "{{ lookup('vars', 'docker_compose_map_' + host_golang_arch, default='{{ host_golang_arch }}') }}"
+docker_compose_arch: "{{ lookup('vars', 'docker_compose_map_' + host_golang_arch, default=host_golang_arch) }}"
 
 # Static configuration.
 docker_compose_path: "/usr/libexec/docker/cli-plugins/"
