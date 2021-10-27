@@ -2,9 +2,10 @@
 amd64:
   hosts:
     pegasus.klingon.alfors.org:
-      node_exporter_use_textfile: true
+      node_exporter_use_smartmon: true
       node_exporter_extra_options: "--no-collector.mdadm"
       mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
+      docker_compose_sha256: "b2aabbc04768efb0dc73c14d105781dd0aceb7a801d3a27d5113ad8e222f0395"
     unifi.klingon.alfors.org:
 #    gateway.klingon.alfors.org:
 #      node_exporter_use_textfile: false

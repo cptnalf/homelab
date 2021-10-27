@@ -1,0 +1,2 @@
+node_exporter_use_textfile: true
+node_exporter_use_smartmon: false

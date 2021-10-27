@@ -153,7 +153,7 @@
 - name: download textfile collector scripts
   tags:
     - node_exporter
-  when: node_exporter_use_textfile
+  when: node_exporter_use_smartmon
   get_url:
     url: "{{ item }}"
     dest: "{{ node_exporter_textfile_dir }}/"
@@ -173,7 +173,7 @@
 - name: enable textfile collector cronjobs
   tags:
     - node_exporter
-  when: node_exporter_use_textfile
+  when: node_exporter_use_smartmon
   cron:
     name: "{{ item }}"
     minute: "*"
