@@ -96,28 +96,22 @@
     owner: root
     group: root
 
+- name: check if password file exists.
+  stat:
+    path: "{{ restic_config }}/{{ restic_pw_file }}"
+  register: restic_pw_file_check
+
 # password file, probably doesn't need to be recreated each time, but *shrug*
 - name: create restic pw file.
   tags:
     - restic
+  when: not restic_pw_file_check.stat.exists
   template:
     src: resticpw.j2
     dest: "{{ restic_config }}/{{ restic_pw_file }}"
     mode: 0600
     owner: root
     group: root
-
-- name: enable backup cronjobs
-  tags:
-    - restic
-  cron:
-    name: "restic"
-    cron_file: "restic"
-    user: root
-    hour: "{{ 5 | random }}"
-    minute: "{{ 60 | random }}"
-    weekday: "{{ 7 | random }}"
-    job: "{{ restic_config }}/restic_backup.sh"
 
 - name: remove temporary restic files
   tags:
