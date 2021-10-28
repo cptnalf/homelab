@@ -5,3 +5,7 @@ resticbk_repo_url: "rest:http://pegasus.klingon.alfors.org:1801/foo"
 resticbk_backup_list:
   - "/root/"
   - "/home"
+
+# default to false; checks will change/override this.
+# override with resticbk_force
+resticbk_install: false

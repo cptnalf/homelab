@@ -15,6 +15,19 @@
     path: "{{ resticbk_config }}"
   register: configdir
 
+- name: check if installing a different version of restic-bk
+  tags:
+    - restic-bk
+  command: "grep -Fxq {{ resticbk_version }} {{ resticbk_config }}/.resticbk-version"
+  ignore_errors: true
+  register: checksum
+
+- name: determine if restic-bk should be installed
+  tags:
+    - restic-bk
+  set_fact:
+    resticbk_install: not configdir.stat.exists or (checksum.rc != 0) or (resticbk_force is defined)
+
 - name: create restic config dir.
   tags:
     - restic-bk.configdir.create
@@ -83,19 +96,22 @@
   tags:
     - resticbk.install
   when: resticbk_install
-  command: "cp /tmp/resticbk/*.service /tmp/resticbk/restic-backup.timer /etc/systemd/system/"
+  command: "cp /tmp/resticbk/{{ item }} /etc/systemd/system/"
+  loop: "{{ resticbk_systemd_services }}"
 
 - name: resticbk set executable flag.
   tags:
     - resticbk.exec.flags
   when: resticbk_install
-  command: "chmod a+x /tmp/resticbk/*.sh"
+  command: "chmod a+x /tmp/resticbk/{{ item }}"
+  loop: "{{ resticbk_shellscripts }}"
 
 - name: resticbk copy scripts.
   tags:
     - resticbk.install.scripts
   when: resticbk_install
-  command: "cp /tmp/resticbk/*.sh /usr/local/bin/"
+  command: "cp /tmp/resticbk/{{ item }} /usr/local/bin/"
+  loop: "{{ resticbk_shellscripts }}"
 
 - name: check if restic-backup service exists
   tags:
@@ -107,9 +123,17 @@
 - name: start resticbk timer.
   tags:
     - resticbk
-  when: resticbk_backup.timer.stat.exists
+  when: resticbk_backup_timer.stat.exists
   systemd:
     daemon_reload: yes
     name: restic-backup.timer
     state: started
     enabled: yes
+
+- name: create version file for resticbk {{ resticbk_version }}
+  tags:
+    - restic-bk
+  when: resticbk_install
+  template:
+    src: resticbk_version.j2
+    dest: "{{ resticbk_config }}/.resticbk-version"

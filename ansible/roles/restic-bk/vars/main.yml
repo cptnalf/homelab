@@ -13,3 +13,15 @@ resticbk_version: "0.0.1"
 resticbk_dir: "resticbk_{{ resticbk_version }}_linux"
 resticbk_url: "https://pegasus.klingon.alfors.org/releases/{{ resticbk_dir }}.tar.xz"
 resticbk_bundle: "/tmp/resticbk.tar.xz"
+
+resticbk_shellscripts:
+  - cleanup_backups.sh
+  - restic_backup.sh
+  - restic_exporter.sh
+  - restic_prune.sh
+  - unit_failure.sh
+
+resticbk_systemd_services:
+  - restic-backup.service
+  - restic-backup-failure.service
+  - restic-backup.timer
