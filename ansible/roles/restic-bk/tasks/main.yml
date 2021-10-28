@@ -1,0 +1,15 @@
+- name: copy scripts
+  tag:
+    - restic_bk.copy.scripts
+  
+# copy script files from... somewhere?
+# maybe bundle a release on pegasus/releases
+# env.sh config via vars, setup default?
+# script systemd daemon-reload
+# script enable for systemd timer.
+# script start for timer.
+
+# cleanup restic install.
+# move /etc/restic and pw copy to here.
+# move backup_list to here.
+#  improve with list stored on host, or provide a default?
