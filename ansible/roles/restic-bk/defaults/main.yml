@@ -1,0 +1,7 @@
+# repository to connect to.
+resticbk_repo_url: "rest:http://pegasus.klingon.alfors.org:1801/foo"
+
+# list of locations to backup.
+resticbk_backup_list:
+  - "/root/"
+  - "/home"

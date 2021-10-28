@@ -1,7 +1,3 @@
-- name: copy scripts
-  tag:
-    - restic_bk.copy.scripts
-  
 # copy script files from... somewhere?
 # maybe bundle a release on pegasus/releases
 # env.sh config via vars, setup default?
@@ -9,7 +5,111 @@
 # script enable for systemd timer.
 # script start for timer.
 
-# cleanup restic install.
-# move /etc/restic and pw copy to here.
-# move backup_list to here.
-#  improve with list stored on host, or provide a default?
+# backup dirs are configured on the host.
+# use resticbk_backup_list
+
+- name: check if restic config dir exists
+  tags:
+    - restic-bk.configdir
+  stat:
+    path: "{{ resticbk_config }}"
+  register: configdir
+
+- name: create restic config dir.
+  tags:
+    - restic-bk.configdir.create
+  file:
+    path: "{{ resticbk_config }}"
+    state: directory
+    mode: 0755
+  when: not configdir.stat.exists
+
+- name: check if password file exists.
+  stat:
+    path: "{{ resticbk_config }}/{{ resticbk_pw_file }}"
+  register: resticbk_pw_file_check
+
+# password file, probably doesn't need to be recreated each time, but *shrug*
+- name: create restic pw file.
+  tags:
+    - restic
+  when: not resticbk_pw_file_check.stat.exists
+  template:
+    src: resticpw.j2
+    dest: "{{ resticbk_config }}/{{ resticbk_pw_file }}"
+    mode: 0600
+    owner: root
+    group: root
+
+# this is a user-configurable file, should probably have some defaults configured?
+- name: create restic backup list
+  tags:
+    - restic
+  template:
+    src: backup_list.j2
+    dest: "{{ resticbk_config }}/backup_list"
+    force: false
+    owner: root
+    group: root
+
+- name: create resticbk config
+  tags:
+    - resticbk_config
+  template:
+    src: env.sh.j2
+    dest: "{{ resticbk_config }}/env.sh"
+    mode: 0600
+    owner: root
+    group: root
+
+- name: download and checksum resticbk scripts
+  tags:
+    - resticbk
+  when: resticbk_install
+  get_url:
+    url: "{{ resticbk_url }}"
+    dest: "{{ resticbk_bundle }}"
+
+- name: unpack resticbk scripts/files.
+  tags:
+    - resticbk
+  when: resticbk_install
+  unarchive:
+    src: "{{ resticbk_bundle }}"
+    dest: /tmp
+    copy: false
+
+- name: resticbk install services.
+  tags:
+    - resticbk.install
+  when: resticbk_install
+  command: "cp /tmp/resticbk/*.service /tmp/resticbk/restic-backup.timer /etc/systemd/system/"
+
+- name: resticbk set executable flag.
+  tags:
+    - resticbk.exec.flags
+  when: resticbk_install
+  command: "chmod a+x /tmp/resticbk/*.sh"
+
+- name: resticbk copy scripts.
+  tags:
+    - resticbk.install.scripts
+  when: resticbk_install
+  command: "cp /tmp/resticbk/*.sh /usr/local/bin/"
+
+- name: check if restic-backup service exists
+  tags:
+    - resticbk
+  stat:
+    path: "/etc/systemd/system/restic-backup.timer"
+  register: resticbk_backup_timer
+
+- name: start resticbk timer.
+  tags:
+    - resticbk
+  when: resticbk_backup.timer.stat.exists
+  systemd:
+    daemon_reload: yes
+    name: restic-backup.timer
+    state: started
+    enabled: yes

@@ -3,17 +3,7 @@
 # Version configuration.
 restic_version: "0.12.1"
 # Static configuration.
-restic_config: "/etc/restic"
-restic_pw_file: ".restic_pw"
 restic_dir: "restic_{{ restic_version }}_linux_{{ host_golang_arch }}"
 restic_url: "https://github.com/restic/restic/releases/download/v{{ restic_version }}/{{ restic_dir }}.bz2"
 restic_bz2: "/tmp/restic.bz2"
-
-restic_pw: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          36653032613837663730343335333935323233653235383730656636633366663736353837616439
-          6364633337643935313733623837613937633937363034640a343463363239623939633936393539
-          33616666303538633538343963666666373866643234313336663164643461336264363835633335
-          3937313036613939300a323237386133636532663536393037323335343834663837323336396366
-          3264
 

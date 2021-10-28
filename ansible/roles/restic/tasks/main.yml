@@ -1,25 +1,8 @@
 ---
-- name: check if restic config dir exists
-  tags:
-    - restic
-  stat:
-    path: "{{ restic_config }}"
-  register: configdir
-
-- name: create restic config dir.
-  tags:
-    - restic
-  file:
-    path: "{{ restic_config }}"
-    state: directory
-    mode: 0755
-  when: not configdir.stat.exists
-
 - name: check if installing a different version of restic
   tags:
     - restic
-  when: configdir.stat.exists
-  command: "grep -Fxq {{ restic_sha256 }} {{ restic_config }}/.sha256"
+  command: "grep -Fxq {{ restic_sha256 }} {{ host_bin_path }}/.restic.sha256"
   ignore_errors: true
   register: checksum
 
@@ -77,42 +60,6 @@
     group: root
     mode: 0755
 
-- name: create restic backup script
-  tags:
-    - restic
-  template:
-    src: restic_backup.sh.j2
-    dest: "{{ restic_config }}/restic_backup.sh"
-    mode: 0755
-
-# this is a user-configurable file, should probably have some defaults configured?
-- name: create restic backup list
-  tags:
-    - restic
-  template:
-    src: backup_list.j2
-    dest: "{{ restic_config }}/backup_list"
-    force: false
-    owner: root
-    group: root
-
-- name: check if password file exists.
-  stat:
-    path: "{{ restic_config }}/{{ restic_pw_file }}"
-  register: restic_pw_file_check
-
-# password file, probably doesn't need to be recreated each time, but *shrug*
-- name: create restic pw file.
-  tags:
-    - restic
-  when: not restic_pw_file_check.stat.exists
-  template:
-    src: resticpw.j2
-    dest: "{{ restic_config }}/{{ restic_pw_file }}"
-    mode: 0600
-    owner: root
-    group: root
-
 - name: remove temporary restic files
   tags:
     - restic
@@ -129,5 +76,5 @@
   when: restic_install
   template:
     src: sha256.j2
-    dest: "{{ restic_config }}/.sha256"
+    dest: "{{ host_bin_path }}/.restic.sha256"
   
