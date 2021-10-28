@@ -10,7 +10,7 @@
   tags:
     - restic
   set_fact:
-    restic_install: (not configdir.stat.exists) or (checksum.rc != 0) or (restic_force is defined)
+    restic_install: (checksum.rc != 0) or (restic_force is defined)
 
 - name: download and checksum restic {{ host_golang_arch }} binary
   tags:
