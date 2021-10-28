@@ -9,4 +9,14 @@
     - docker-compose
     - knot-resolver
     - restic
+    - restic-bk
+
 #    - vps_oracle
+
+
+#- hosts: korana.klingon.alfors.org
+#  become: true
+#  become_user: root
+#  roles:
+#    - docker-compose
+#
