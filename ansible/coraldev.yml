@@ -1,0 +1,36 @@
+---
+amd64:
+  hosts:
+    192.168.9.176:
+server:
+    hosts:
+      192.168.9.176:
+
+coraldev:
+  hosts:
+    192.168.9.49:
+      coraldev_swap_file: /srv/swapfile
+      coraldev_swap_size: 1024 # MB
+      coraldev_usbdrive_swappart: "UUID=f98df333-d452-4cf9-91ad-918da24ffc72"
+      coraldev_usbdrive_device: "UUID=afbda970-4908-41b1-9ab5-5a1c88fae020"
+      # this is the wd250 from shannon "UUID=a49c9bb6-c87d-464c-9198-520d5e3a1df3"
+      
+      resticbk_repo_url: /sdcard/restic/
+      resticbk_backup_list:
+        - /root/
+        - /home
+        - /sdcard/frigate
+        - /sdcard/src
+      knot_resolver_use_j2_config: false
+      node_exporter_force: true
+
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "arm64"
+    
+    node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
+    node_exporter_extra_options: ""
+    
+    docker_compose_sha256: "d2860a176404b7b27940e879c219660114500ff597b9f44ef54e8208f3e6b881"
+    
+    restic_sha256: "c7e58365d0b888a60df772e7857ce8a0b53912bbd287582e865e3c5e17db723f"
