@@ -19,7 +19,7 @@ services:
           size: 256000000
           # 256MB.
     ports:
-      - 192.168.9.194:5000:5000
+      - 192.168.9.49:5000:5000
       - 1935:1935
     environment:
       FRIGATE_CAM_UN: ${CAM_UN}
@@ -28,6 +28,13 @@ services:
       FRIGATE_RTSP_PW: ${FRIGATE_RTSP_PW}
     depends_on:
       - mqtt
+    labels:
+      traefik.enable: true
+      traefik.http.routers.frigate.entryPoints: https
+      traefik.http.routers.frigate.rule: Host(`frigate.celecourt.alfors.org`)
+      traefik.http.routers.frigate.tls: true
+      traefik.http.routers.frigate.tls.certresolver: letsencryptReso
+      traefik.http.services.frigate.loadBalancer.server.port: 5000
 
   mqtt:
     container_name: mqtt
@@ -56,7 +63,7 @@ services:
       - /var/run/docker.sock:/var/run.sock:ro
       - /sdcard/frigate/traefik.yml:/etc/traefik/traefik.yml
       - /sdcard/frigate/traefik-sites/:/traefik
-      - /sdcard/frigate/achme.json:/acme.json
+      - /sdcard/frigate/acme.json:/acme.json
     depends_on:
       - traefik-forward-auth
   
@@ -71,6 +78,6 @@ services:
       - INSECURE_COOKIE=false
       - LOG_LEVEL=info
     labels:
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
-      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
-      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.address: http://traefik-forward-auth:4181
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders: X-Forwarded-User
+      traefik.http.services.traefik-forward-auth.loadbalancer.servers.url: http://traefik-forward-auth:4181
