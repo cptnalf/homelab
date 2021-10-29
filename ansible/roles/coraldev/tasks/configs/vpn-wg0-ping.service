@@ -1,0 +1,18 @@
+# /etc/systemd/system/vpn-wg0-ping.service
+[Unit]
+Description=Ping vpn.alfors.org's internal wireguard interface to keep the tunnel up.
+Requires=network.target wg-quick@wg0.service
+
+[Service]
+Type=oneshot
+ExecStart="/bin/ping -c2 10.10.0.1"
+
+# hardening.
+PrivateTmp=true
+ProtectHome=read-only
+ProtectSystem=full
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+PrivateDevices=true
+MemoryDenyWriteExecute=true

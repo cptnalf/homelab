@@ -216,6 +216,47 @@
     group: "root"
     mode: 0644
 
+- name: check if vpn-wg0-ping service exists
+  tags:
+    - coraldev
+  stat:
+    path: "/etc/systemd/system/vpn-wg0-ping.service"
+  register: coraldev_ping_service
+
+- name: install wg0 ping service
+  when: not coraldev_ping_service.stat.exists
+  copy:
+    src: "configs/vpn-wg0-ping.service"
+    dest: "/etc/systemd/system/vpn-wg0-ping.service"
+    owner: "root"
+    group: "root"
+    mode: 0644
+
+- name: check if wg-quick@wg0 timer exists
+  tags:
+    - coraldev
+  stat:
+    path: "/etc/systemd/system/wg-quick@wg0.timer"
+  register: coraldev_ping_timer
+
+- name: install wg0 ping timer
+  when: not coraldev_ping_timer.stat.exists
+  copy:
+    src: "configs/wg-quick@wg0.timer"
+    dest: "/etc/systemd/system/wg-quick@wg0.timer"
+    owner: "root"
+    group: "root"
+    mode: 0644
+
+- name: start wg-quick@wg0 timer.
+  tags:
+    - coraldev
+  systemd:
+    daemon_reload: yes
+    name: wg-quick@wg0.timer
+    state: started
+    enabled: yes
+
 #- name: start docker service
 #  tags:
 #    - docker
