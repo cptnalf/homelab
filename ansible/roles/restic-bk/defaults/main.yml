@@ -6,6 +6,9 @@ resticbk_backup_list:
   - "/root/"
   - "/home"
 
+# exclusions list.
+resticbk_exclude_list:
+
 # default to false; checks will change/override this.
 # override with resticbk_force
 resticbk_install: false
