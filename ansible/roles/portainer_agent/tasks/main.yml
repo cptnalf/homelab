@@ -1,0 +1,6 @@
+# pull down docker-compose file.
+# create directory for file.
+# need config for volumes location
+# maybe config for destination?
+# need secret-key pull location (maybe vault this)
+# dump secret key into .env file, copy to above configurable destination.
