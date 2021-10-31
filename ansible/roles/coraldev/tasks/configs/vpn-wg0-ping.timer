@@ -1,12 +1,12 @@
-# /etc/systemd/system/wg-quick@wg0.timer
+# /etc/systemd/system/vpn-wg0-ping.timer
 [Unit]
 Description=wireguard occasional ping to ensure connection.
 
 [Timer]
 # see man 7 systemd.tim for possible formats.
 # every 13m
-OnUnitActiveSec=13min
-RandomizeDelaySec=320
+OnCalendar=*:0/13
+RandomizedDelaySec=320
 Unit=vpn-wg0-ping.service
 
 [Install]
