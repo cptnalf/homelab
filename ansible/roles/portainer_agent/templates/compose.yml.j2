@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  agent:
+    image: portainer/portainer_agent:{{ portaner_agent_version}}
+    container_name: {{ portainer_agent_containername }}
+    volumes:
+      - {{ portainer_agent_volumepath }}:/var/lib/docker/volumes
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9001:9001
+    restart: unless-stopped
+    environment:
+      AGENT_SECRET: {{ portainer_agent_secret }}
+  

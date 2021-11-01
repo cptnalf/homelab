@@ -4,3 +4,33 @@
 # maybe config for destination?
 # need secret-key pull location (maybe vault this)
 # dump secret key into .env file, copy to above configurable destination.
+
+- name: check if portainer_agent docker-compose dir exists
+  tags:
+    - portainer_agent.dcdir
+  stat:
+    path: "{{ portainer_agent_dcpath }}"
+  register: portainer_agent_dcpath_check
+
+- name: make dir
+  tags:
+    - portainer_agent.makedir
+  file:
+    path: "{{ portainer_agent_dcpath }}"
+    state: directory
+    mode: 0711
+    owner: root
+    group: root
+  when: not portainer_agent_dcpath_check.stat.exists
+
+- name: make the docker-compose file.
+  tags:
+    - portainer_agent.docker_compose
+  template:
+    src: compose.yml.j2
+    dest: "{{ portainer_agent_dcpath }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: 0600
+
+# start docker env here.
