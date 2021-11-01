@@ -61,9 +61,19 @@
   template:
     src: backup_list.j2
     dest: "{{ resticbk_config }}/backup_list"
-    force: false
     owner: root
     group: root
+    mode: 0644
+
+- name: create restic exclude list
+  tags:
+    - resticbk.exclude.file
+  template:
+    src: excludes.j2
+    dest: "{{ resticbk_config }}/excludes"
+    owner: "root"
+    group: "root"
+    mode: 0644
 
 - name: create resticbk config
   tags:
