@@ -31,6 +31,7 @@ arm64:
       restic_repo_url: "rest:http://192.168.9.22:1801/foo"
       promtail_config_clients:
         - url: "http://192.168.9.21:3100/loki/api/v1/push"
+      portainer_agent_volumepath: /ssd/docker/volumes
 
     # video.
     ganges.klingon.alfors.org:
@@ -81,3 +82,10 @@ dhcp:
   hosts:
     korana.klingon.alfors.org:
     defiant.klingon.alfors.org:
+
+pa:
+  hosts:
+    korana.klingon.alfors.org:
+    defiant.klingon.alfors.org:
+    ganges.klingon.alfors.org:
+    orinoco.klingon.alfors.org:
