@@ -1,4 +1,5 @@
-- hosts: pegasus.klingon.alfors.org
+#- hosts: pegasus.klingon.alfors.org
+- hosts: arm64
   become: true
   become_user: root
   roles:
