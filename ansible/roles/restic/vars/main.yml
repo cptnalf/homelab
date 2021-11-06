@@ -3,7 +3,12 @@
 # Version configuration.
 restic_version: "0.12.1"
 # Static configuration.
-restic_dir: "restic_{{ restic_version }}_linux_{{ host_golang_arch }}"
+
+restic_map_armv7: "arm"
+
+restic_arch: "{{ lookup('vars', 'restic_map_' + host_golang_arch, default=host_golang_arch) }}"
+
+restic_dir: "restic_{{ restic_version }}_linux_{{ restic_arch }}"
 restic_url: "https://github.com/restic/restic/releases/download/v{{ restic_version }}/{{ restic_dir }}.bz2"
 restic_bz2: "/tmp/restic.bz2"
 
