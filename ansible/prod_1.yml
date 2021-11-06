@@ -22,7 +22,7 @@ arm64:
     defiant.klingon.alfors.org:
       host_internal_addr: "192.168.9.5"
       base_strongswan: true
-      restic_repo_url: "rest:http://192.168.9.22:1801/foo"
+      resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
       resticbk_backup_list:
         - /etc/knot/
         - /etc/knot-resolver
@@ -36,7 +36,7 @@ arm64:
     # backup caching dns (some day backup/failover dhcpd) and strongswan (ipsec) server
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
-      restic_repo_url: "rest:http://192.168.9.22:1801/foo"
+      resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
       resticbk_backup_list:
         - /root
         - /home
