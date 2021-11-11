@@ -1,0 +1,18 @@
+http:
+  routers:
+    frigate:
+      entryPoints:
+        - https
+      service: frigate
+      rule: Host(`frigate.celecourt.alfors.org`)
+      middlewares:
+        - "traefik-forward-auth"
+      tls:
+        certResolver: "letsencryptReso"
+
+  services:
+    frigate:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.8:5000/
+        passHostHeader: false
