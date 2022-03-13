@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   frigate:
     container_name: frigate
@@ -11,7 +11,10 @@ services:
       # this is the coral ai tpu.
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      # config
       - /sdcard/frigate/config:/config
+      # everything else.
+      # db (sqlite), snapshots, recordings
       - /usbdrive/frigate:/media/frigate
       - type: tmpfs
         target: /tmp/cache
@@ -24,17 +27,8 @@ services:
     environment:
       FRIGATE_CAM_UN: ${CAM_UN}
       FRIGATE_CAM_PW: ${CAM_PW}
-      FRIGATE_RTSP_UN: ${FRIGATE_RTSP_UN}
-      FRIGATE_RTSP_PW: ${FRIGATE_RTSP_PW}
     depends_on:
       - mqtt
-    labels:
-      traefik.enable: true
-      traefik.http.routers.frigate.entryPoints: https
-      traefik.http.routers.frigate.rule: Host(`frigate.celecourt.alfors.org`)
-      traefik.http.routers.frigate.tls: true
-      traefik.http.routers.frigate.tls.certresolver: letsencryptReso
-      traefik.http.services.frigate.loadBalancer.server.port: 5000
 
   mqtt:
     container_name: mqtt
@@ -50,7 +44,7 @@ services:
     restart: unless-stopped
     image: traefik:v2.5.3
     security_opt:
-      - no-new-privileges: true
+      - no-new-privileges:true
     ports:
       - 80:80
       - 443:443
@@ -60,7 +54,7 @@ services:
       - CF_DNS_API_TOKEN=${CF_API_TOKEN}
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sdcard/frigate/traefik.yml:/etc/traefik/traefik.yml
       - /sdcard/frigate/traefik-sites/:/traefik
       - /sdcard/frigate/acme.json:/acme.json
@@ -68,9 +62,10 @@ services:
       - traefik-forward-auth
   
   traefik-forward-auth:
-    container_name: traefik-foward-auth
-    image: thomsaddon/traefik-forward-auth:2-arm64
-    command: ["-whitelist=${MY_EMAIL}", "-whitelist=${OWNER_EMAIL}", "-whitelist=${WIFE_EMAIL}", "-whitelist=${HER_EMAIL}"]
+    container_name: traefik-forward-auth
+    restart: unless-stopped
+    image: thomseddon/traefik-forward-auth:2-arm64
+    command: ["--whitelist=${MY_EMAIL}", "--whitelist=${OWNER_EMAIL}", "--whitelist=${WIFE_EMAIL}", "--whitelist=${HER_EMAIL}", "--whitelist=${AUX_EMAIL}"]
     environment:
       - PROVIDERS_GOOGLE_CLIENT_ID=${GG_CLIENT_ID}
       - PROVIDERS_GOOGLE_CLIENT_SECRET=${GG_CLIENT_SECRET}

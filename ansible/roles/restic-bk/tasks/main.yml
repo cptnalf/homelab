@@ -123,6 +123,24 @@
   command: "cp /tmp/resticbk/{{ item }} /usr/local/bin/"
   loop: "{{ resticbk_shellscripts }}"
 
+- name: check if cache-dir exists
+  tags:
+    - resticbk
+  stat:
+    path: "/var/cache/restic"
+  register: resticbk_cache_dircheck
+
+- name: create cache-dir if not exists
+  tags:
+    - resticbk.cache.dir
+  when: not resticbk_cache_dircheck.stat.exists
+  file:
+    path: "/var/cache/restic"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: check if restic-backup service exists
   tags:
     - resticbk

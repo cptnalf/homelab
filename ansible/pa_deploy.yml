@@ -1,0 +1,5 @@
+- hosts: pa
+  roles:
+    - docker-compose
+    - portainer_agent
+

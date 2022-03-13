@@ -2,7 +2,7 @@ version: '3'
 
 services:
   agent:
-    image: portainer/portainer_agent:{{ portaner_agent_version}}
+    image: portainer/agent:{{ portainer_agent_version}}
     container_name: {{ portainer_agent_containername }}
     volumes:
       - {{ portainer_agent_volumepath }}:/var/lib/docker/volumes
