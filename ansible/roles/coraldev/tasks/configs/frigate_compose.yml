@@ -19,7 +19,7 @@ services:
           size: 256000000
           # 256MB.
     ports:
-      - 192.168.9.49:5000:5000
+      - 5000:5000
       - 1935:1935
     environment:
       FRIGATE_CAM_UN: ${CAM_UN}

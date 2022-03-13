@@ -5,7 +5,7 @@ Description=wireguard occasional ping to ensure connection.
 [Timer]
 # see man 7 systemd.tim for possible formats.
 # every 13m
-OnCalendar=*:0/13
+OnCalendar=*:0/1
 RandomizedDelaySec=320
 Unit=vpn-wg0-ping.service
 
