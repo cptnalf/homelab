@@ -6,9 +6,9 @@ atomicpi:
 
   vars:
     host_bin_path: "/usr/sbin"
-    host_golang_arch: "arm64"
+    host_golang_arch: "amd64"
     
     node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
     node_exporter_extra_options: ""
     
-    docker_compose_sha256: "d2860a176404b7b27940e879c219660114500ff597b9f44ef54e8208f3e6b881"
+    docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
