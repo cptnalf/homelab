@@ -87,6 +87,20 @@
   when: not item.stat.exists
   loop: "{{ config_file.results }}"
 
+- name: bnx2 firmware drivers
+  when: bnx2_install
+  apt:
+    pkg:
+      - firmware-bnx2
+    state: present
+
+- name: basic non-free firmware drivers (tg3 nic)
+  when: tg3_install
+  apt:
+    pkg:
+      - firmware-misc-nonfree
+    state: present
+
 - name: upgrade all packages
   tags:
     - base

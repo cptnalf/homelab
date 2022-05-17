@@ -2,3 +2,5 @@ base_cpupower: false
 base_strongswan: false
 base_dist_upgrade: false
 base_disk_monitoring: false
+tg3_install: false
+bnx2_install: false
