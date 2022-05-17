@@ -5,7 +5,6 @@ amd64:
       node_exporter_use_smartmon: true
       node_exporter_extra_options: "--no-collector.mdadm"
       mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
-      docker_compose_sha256: "90990e7268e954e7930353650d7bcf5a37d29c77925ea2066335367b5f27ec9a"
       resticbk_backup_list:
         - /root/
         - /home
@@ -38,6 +37,7 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
+    docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
     node_exporter_sha256: "344bd4c0bbd66ff78f14486ec48b89c248139cdd485e992583ea30e89e0e5390"
     restic_sha256: "11d6ee35ec73058dae73d31d9cd17fe79661090abeb034ec6e13e3c69a4e7088"
 

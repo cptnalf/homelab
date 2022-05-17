@@ -1,6 +1,6 @@
 ---
 # Version configuration.
-docker_compose_version: "2.1.0"
+docker_compose_version: "2.5.1"
 docker_compose_map_arm64: "aarch64"
 docker_compose_map_amd64: "x86_64"
 

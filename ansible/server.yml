@@ -14,6 +14,14 @@
 #    - vps_oracle
 
 
+- hosts: atomicpi
+  become: true
+  become_user: root
+  roles:
+    - base
+    - docker
+    - docker-compose
+
 #- hosts: korana.klingon.alfors.org
 #  become: true
 #  become_user: root

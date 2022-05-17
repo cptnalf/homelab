@@ -64,7 +64,7 @@ arm64:
     base_dist_upgrade: false
     node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
     node_exporter_extra_options: ""
-    docker_compose_sha256: "914bc7176a25648e71cdafb11acee567989c5aa9e35248ef4bf197a4d6b0bfef"
+    docker_compose_sha256: "002662ed18a22d9d65d3d2c0358008c7c6a3db7dacb8983488130b3954d00e63"
     restic_sha256: "c7e58365d0b888a60df772e7857ce8a0b53912bbd287582e865e3c5e17db723f"
     promtail_config_clients:
       - url: "https://loki.klingon.alfors.org/loki/api/v1/push"
