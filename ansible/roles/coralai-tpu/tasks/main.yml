@@ -1,0 +1,28 @@
+---
+- name: add google-cloud apt key
+  tags:
+    - coralai-tpu
+  apt_key:
+    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    state: present
+
+- name: add coral-ai tpu apt repository
+  tags:
+    - coralai-tpu
+  apt_repository:
+    repo: "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main"
+    state: present
+
+- name: update package lists
+  tags:
+    - coralai-tpu
+  apt:
+    update_cache: true
+
+# i think this package requires interactive 'yes/no' in order to install.
+#- name: install libedgetpu1-max
+#  tags:
+#    - coralai-tpu
+#  apt:
+#    pkg: ['libedgetpu1-max']
+#    state: present
