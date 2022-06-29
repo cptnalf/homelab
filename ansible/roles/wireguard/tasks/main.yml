@@ -1,0 +1,20 @@
+---
+- name: add buster-backports apt repository (for wireguard)
+  tags:
+    - wireguard
+  apt_repository:
+    repo: "deb http://debian.gtisc.gatech.edu/debian buster-backports main contrib"
+    state: present
+
+- name: update package lists
+  tags:
+    - wireguard
+  apt:
+    update_cache: true
+
+- name: install wireguard
+  tags:
+    - wireguard
+  apt:
+    pkg: ['wireguard', 'wireguard-dkms']
+    state: present
