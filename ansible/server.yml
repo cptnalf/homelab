@@ -21,6 +21,9 @@
     - base
     - docker
     - docker-compose
+    - node_exporter
+    - coralai-tpu
+    - wireguard
 
 #- hosts: korana.klingon.alfors.org
 #  become: true

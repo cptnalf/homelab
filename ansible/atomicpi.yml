@@ -1,14 +1,23 @@
 ---
 atomicpi:
   hosts:
-    192.168.9.122:
-      node_exporter_force: true
+    #192.168.9.122:
+    192.168.9.174:
 
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "amd64"
     
-    node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
+    node_exporter_force: true
+    node_exporter_sha256: "344bd4c0bbd66ff78f14486ec48b89c248139cdd485e992583ea30e89e0e5390"
     node_exporter_extra_options: ""
     
     docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
+
+    base_custom_packages_install: true
+    base_custom_packages:
+      - nfs-common
+      - vainfo
+      - intel-gpu-tools
+      - btrfs-progs
+

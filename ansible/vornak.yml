@@ -1,0 +1,24 @@
+---
+# install
+# wireguard tools
+# restic
+# restic_bk
+# knot-dns
+# knot-resolver
+# remove graphical login
+# smart-hdd-utils
+# eject
+
+# configure
+# my settings; vscode (or oss version) website?
+# mount /srv
+# dns (knot-dns, knot-resolver)
+# prometheus
+# grafana
+# portainer
+# homeassitant?
+# edgetpu exporter
+# docker-compose configs (should these just be git-pulls?)
+
+# -- maybe --
+# plex?
