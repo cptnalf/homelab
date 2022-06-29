@@ -101,6 +101,13 @@
       - firmware-misc-nonfree
     state: present
 
+- name: install custom packages...
+  when: base_custom_packages_install
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ base_custom_packages }}"
+
 - name: upgrade all packages
   tags:
     - base

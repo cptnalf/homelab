@@ -4,3 +4,5 @@ base_dist_upgrade: false
 base_disk_monitoring: false
 tg3_install: false
 bnx2_install: false
+
+base_custom_packages_install: false
