@@ -39,7 +39,7 @@ amd64:
     base_dist_upgrade: false
     docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
     node_exporter_sha256: "344bd4c0bbd66ff78f14486ec48b89c248139cdd485e992583ea30e89e0e5390"
-    restic_sha256: "11d6ee35ec73058dae73d31d9cd17fe79661090abeb034ec6e13e3c69a4e7088"
+    restic_sha256: "a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8"
 
 servers:
   hosts:
