@@ -46,6 +46,7 @@
       - hddtemp
       - smartmontools
       - megacli
+      - vim
     state: present
 
 - name: install cpupower utils for freq-adjustments/info

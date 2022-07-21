@@ -10,7 +10,7 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "344bd4c0bbd66ff78f14486ec48b89c248139cdd485e992583ea30e89e0e5390"
+    node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8"
     promtail_config_clients:
@@ -62,7 +62,7 @@ arm64:
     base_cpupower: true
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "b78464d8bd1b770a7f818d20c78410090f64a91b13577f1883dca1eec5aedbc9"
+    node_exporter_sha256: "f19f35175f87d41545fa7d4657e834e3a37c1fe69f3bf56bc031a256117764e7"
     node_exporter_extra_options: ""
     docker_compose_sha256: "002662ed18a22d9d65d3d2c0358008c7c6a3db7dacb8983488130b3954d00e63"
     restic_sha256: "9062e56b98173ae9b000e2cf867d388577442863c83ac3b6a48e90a776cf75ad"
