@@ -7,11 +7,10 @@
       - git
       - tmux
       - emacs-nox
-      - vim-tiny
       - netcat-openbsd
       - gpg
       - curl
-      - net-tools
+      - vim
     state: present
 
 - name: install hwraid keys.
@@ -46,7 +45,6 @@
       - hddtemp
       - smartmontools
       - megacli
-      - vim
     state: present
 
 - name: install cpupower utils for freq-adjustments/info
