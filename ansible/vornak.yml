@@ -11,7 +11,7 @@ vornak:
     node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
     node_exporter_extra_options: ""
     
-    docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
+    docker_compose_sha256: "184df811a70366fa339e99df38fc6ff24fc9e51b3388335efe51c1941377d4ce"
     restic_sha256: "a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8"
     base_custom_packages_install: true
     base_custom_packages:
