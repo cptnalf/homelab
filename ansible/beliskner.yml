@@ -1,0 +1,54 @@
+---
+amd64:
+  hosts:
+    192.168.9.157:
+    # this is bortas.
+    # beliskner is the 16GB usb stick with uefi bootable.
+    # cpu scaling freq.
+
+  vars:
+    host_bin_path: "/usr/sbin"
+    host_golang_arch: "amd64"
+    
+    node_exporter_force: true
+    node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
+    node_exporter_extra_options: ""
+    
+    docker_compose_sha256: "d99de1ea7616f2a4c7914d37674f0650660a5e832be555805a71c0fc377233c9"
+    restic_sha256: "a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8"
+    base_custom_packages_install: true
+    base_custom_packages:
+      - nfs-common
+      - vainfo
+      - intel-gpu-tools
+      - btrfs-progs
+      - firmware-linux
+      - firmware-sof-signed # audio out
+      - firmware-iwlwifi
+
+
+# install
+# wireguard tools
+# eject
+# smart-hdd-utils
+# restic
+# restic_bk
+# knot-dns
+# knot-resolver
+# remove graphical login
+
+# configure
+# my settings; vscode (or oss version) website?
+# * manual? * mount /srv
+# dns (knot-dns, knot-resolver) - ansible, copy configs over.
+# wireguard config - ;_; maybe try the graphical one from the start?
+# prometheus - git-repo w/ config copy?
+# grafana - ^
+# portainer - ^
+# homeassitant?
+# edgetpu exporter - ^
+# docker-compose configs (should these just be git-pulls?)
+
+# -- maybe --
+# plex?
+
