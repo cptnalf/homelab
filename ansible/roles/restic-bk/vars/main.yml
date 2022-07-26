@@ -9,7 +9,7 @@ resticbk_pw: !vault |
           3937313036613939300a323237386133636532663536393037323335343834663837323336396366
           3264
 
-resticbk_version: "0.0.6"
+resticbk_version: "0.0.7"
 resticbk_dir: "resticbk_{{ resticbk_version }}_linux"
 resticbk_url: "https://pegasus.klingon.alfors.org/releases/{{ resticbk_dir }}.tar.xz"
 resticbk_bundle: "/tmp/resticbk.tar.xz"
