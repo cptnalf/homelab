@@ -6,11 +6,11 @@
     pkg:
       - git
       - tmux
-      - emacs-nox
       - netcat-openbsd
       - gpg
       - curl
-      - vim
+      - vim-nox
+      - emacs-nox
     state: present
 
 - name: install hwraid keys.
@@ -73,6 +73,7 @@
   register: config_file
   loop:
     - .tmux.conf
+    - .vimrc
 
 - name: install my configs
   tags:
