@@ -1,0 +1,11 @@
+---
+- hosts: amd64
+  roles:
+    - base
+    - docker
+    - docker-compose
+    - node_exporter
+    - coralai-tpu
+    - restic
+#    - restic-bk
+    - knot-resolver

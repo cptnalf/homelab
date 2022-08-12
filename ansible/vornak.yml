@@ -1,5 +1,5 @@
 ---
-vornak:
+amd64:
   hosts:
     192.168.9.15:
 
@@ -21,6 +21,8 @@ vornak:
       - btrfs-progs
       - firmware-linux
       - firmware-realtek
+      - nut
+    knot_resolver_use_j2_config: false
 
 
 # install

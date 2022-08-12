@@ -1,0 +1,45 @@
+
+- name: check srv dir
+  tags:
+    - vornak
+  stat:
+    path: /srv
+  register: srv_res
+
+- name: make srv dir.
+  tags:
+    - vornak
+  when: not srv_res.stat.exists
+  file:
+    path: /srv
+    mode: 0755
+    state: directory
+    owner: "root"
+    group: "root"
+
+#- name: add srv to fstab.
+#  tags:
+#    - vornak
+#  mount:
+#    path: /srv
+#    src: /dev/mmcblk1p1
+#    fstype: btrfs
+#    opts: defaults
+#    state: present
+
+- name: update/deploy modules-to-load at boot
+  tags:
+    - vornak
+  template:
+    src: modules.j2
+    dest: "/etc/modules"
+
+- name: copy kresd conf.
+  tags:
+    - coraldev
+  copy:
+    src: "configs/kresd.conf"
+    dest: "/etc/knot-resolver/kresd.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644

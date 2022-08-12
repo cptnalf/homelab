@@ -1,0 +1,5 @@
+---
+vornak_modules:
+  - ip6_tables
+  - wireguard
+  - apex
