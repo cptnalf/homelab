@@ -9,8 +9,10 @@
       - netcat-openbsd
       - gpg
       - curl
-      - vim-nox
+      - eject     # piece of mind for usb drives.
+      - vim-nox   # replaces vim.basic/vim.tiny
       - emacs-nox
+      - rsync
     state: present
 
 - name: install hwraid keys.
