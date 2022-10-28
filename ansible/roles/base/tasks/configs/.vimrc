@@ -1,6 +1,6 @@
 set nocompatible
 
-# turn off visual-mouse-inserts/etc
+"  turn off visual-mouse-inserts/etc
 set mouse-=a
 
 syntax on
