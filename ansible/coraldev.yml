@@ -33,4 +33,4 @@ coraldev:
     
     docker_compose_sha256: "bcc79aff65b35581246feca30d53261eddcfc79285868061b31f3ff86d102563"
     
-    restic_sha256: "c7e58365d0b888a60df772e7857ce8a0b53912bbd287582e865e3c5e17db723f"
+    restic_sha256: "24c7ca3fe6905b3a493a67237ff081ba9e11abfb27dcb73f18d0a4595926c35d"

@@ -11,7 +11,7 @@ armv7:
     node_exporter_use_textfile: true
     node_exporter_sha256: "24c2abf3ce906188b9725c5235424e984b263d4efddb988b59ed7d3c0e695e8f"
     docker_compose_sha256: "22cfe5b2eab86a4832f328049cafacc8e7d76c12185ea7bdff7e7c7ce42f5f10"
-    restic_sha256: "a9080fc18d6015126864873dba3307b2b9c8ab5ecf79da3c1ae25cb2988fc9bd"
+    restic_sha256: "35396671b32a78b457168a6413a2e0c7818e8ae740905eb273c0198f051e930f"
 
 server:
   hosts:
