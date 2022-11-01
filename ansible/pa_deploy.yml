@@ -2,4 +2,3 @@
   roles:
     - docker-compose
     - portainer_agent
-

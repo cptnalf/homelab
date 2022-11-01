@@ -1,6 +1,13 @@
 ---
 amd64:
   hosts:
+    bortas.klingon.alfors.org:
+      host_internal_addr: "192.168.9.7"
+      resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
+      promtail_config_clients:
+        - url: "https://192.168.9.21:3100/loki/api/v1/push"
+    
+    ## former hosts
     valiant.klingon.alfors.org:
     # app server
     grissom.klingon.alfors.org:
@@ -10,6 +17,8 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
+
+    docker_compose_sha256: "36d1728ce001c7f021294be43bdfa3f508038bb00886c34b0794f7731cc9bf4b"
     node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "a7a82eca050224c9cd070fea1d4208fe92358c5942321d6e01eff84a77839fb8"
@@ -64,7 +73,7 @@ arm64:
     base_dist_upgrade: false
     node_exporter_sha256: "f19f35175f87d41545fa7d4657e834e3a37c1fe69f3bf56bc031a256117764e7"
     node_exporter_extra_options: ""
-    docker_compose_sha256: "bcc79aff65b35581246feca30d53261eddcfc79285868061b31f3ff86d102563"
+    docker_compose_sha256: "a2c9819115df18ada4e6a68be37f6515121984189d379456bdfd53058e07128b"
     restic_sha256: "9062e56b98173ae9b000e2cf867d388577442863c83ac3b6a48e90a776cf75ad"
     promtail_config_clients:
       - url: "https://loki.klingon.alfors.org/loki/api/v1/push"
@@ -97,9 +106,11 @@ dhcp:
   hosts:
     korana.klingon.alfors.org:
     defiant.klingon.alfors.org:
+    bortas.klingon.alfors.org:
 
 pa:
   hosts:
+    bortas.klingon.alfors.org:
     korana.klingon.alfors.org:
     defiant.klingon.alfors.org:
     ganges.klingon.alfors.org:
@@ -107,6 +118,7 @@ pa:
 
 dockers:
   hosts:
+    bortas.klingon.alfors.org:
     defiant.klingon.alfors.org:
     korana.klingon.alfors.org:
     ganges.klingon.alfors.org:
