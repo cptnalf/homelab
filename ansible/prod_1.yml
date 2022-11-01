@@ -10,8 +10,8 @@ amd64:
     ## former hosts
     valiant.klingon.alfors.org:
     # app server
-    grissom.klingon.alfors.org:
-      mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
+    #grissom.klingon.alfors.org:
+    #  mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
   vars:
     host_bin_path: "/usr/sbin"
     host_golang_arch: "amd64"
@@ -19,7 +19,7 @@ amd64:
     base_dist_upgrade: false
 
     docker_compose_sha256: "36d1728ce001c7f021294be43bdfa3f508038bb00886c34b0794f7731cc9bf4b"
-    node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
+    node_exporter_sha256: "e77ff1b0a824a4e13f82a35d98595fe526849c09e3480d0789a56b72242d2abc"
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "c8da7350dc334cd5eaf13b2c9d6e689d51e7377ba1784cc6d65977bd44ee1165"
     promtail_config_clients:
@@ -71,7 +71,7 @@ arm64:
     base_cpupower: true
     base_disk_monitoring: false
     base_dist_upgrade: false
-    node_exporter_sha256: "f19f35175f87d41545fa7d4657e834e3a37c1fe69f3bf56bc031a256117764e7"
+    node_exporter_sha256: "0b20aa75385a42857a67ee5f6c7f67b229039a22a49c5c61c33f071356415b59"
     node_exporter_extra_options: ""
     docker_compose_sha256: "a2c9819115df18ada4e6a68be37f6515121984189d379456bdfd53058e07128b"
     restic_sha256: "24c7ca3fe6905b3a493a67237ff081ba9e11abfb27dcb73f18d0a4595926c35d"

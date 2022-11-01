@@ -8,7 +8,7 @@ amd64:
     host_golang_arch: "amd64"
     
     node_exporter_force: true
-    node_exporter_sha256: "68f3802c2dd3980667e4ba65ea2e1fb03f4a4ba026cca375f15a0390ff850949"
+    node_exporter_sha256: "e77ff1b0a824a4e13f82a35d98595fe526849c09e3480d0789a56b72242d2abc"
     node_exporter_extra_options: ""
     
     docker_compose_sha256: "184df811a70366fa339e99df38fc6ff24fc9e51b3388335efe51c1941377d4ce"
