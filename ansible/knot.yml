@@ -1,0 +1,11 @@
+---
+- hosts: bortas.klingon.alfors.org
+  roles:
+    - base
+    - docker
+    - docker-compose
+    - knot-resolver
+#    - nomad
+#    - virtualbox
+#    - node_exporter
+
