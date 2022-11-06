@@ -4,6 +4,12 @@ amd64:
     bortas.klingon.alfors.org:
       host_internal_addr: "192.168.9.7"
       resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
+      resticbk_timer_time: "01:01:00"
+      resticbk_backup_list:
+        - /etc/knot/
+        - /etc/knot-resolver
+        - /root
+        - /home/        
       promtail_config_clients:
         - url: "https://192.168.9.21:3100/loki/api/v1/push"
     
@@ -32,6 +38,7 @@ arm64:
       host_internal_addr: "192.168.9.5"
       base_strongswan: true
       resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
+      resticbk_timer_time: "00:01:00"
       resticbk_backup_list:
         - /etc/knot/
         - /etc/knot-resolver
@@ -46,6 +53,7 @@ arm64:
     korana.klingon.alfors.org:
       host_internal_addr: "192.168.9.6"
       resticbk_repo_url: "rest:http://192.168.9.22:1801/foo"
+      resticbk_timer_time: "00:20:00"
       resticbk_backup_list:
         - /root
         - /home
@@ -64,6 +72,7 @@ arm64:
     orinoco.klingon.alfors.org:
       host_internal_addr: "192.168.9.43"
       base_cpupower: false
+      resticbk_timer_time: "00:40:00"
 
   vars:
     host_bin_path: "/usr/sbin"

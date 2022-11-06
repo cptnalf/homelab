@@ -5,6 +5,7 @@ amd64:
       node_exporter_use_smartmon: true
       node_exporter_extra_options: "--no-collector.mdadm"
       mqtt2prometheus_sha256: "5d9b9f75eb3eb24a9cc68cc2caa253e1e420e02f14d02b02a93f78b700270c9d"
+      resticbk_timer_timer: "01:40:00"
       resticbk_backup_list:
         - /root/
         - /home

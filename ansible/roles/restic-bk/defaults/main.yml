@@ -12,3 +12,6 @@ resticbk_exclude_list:
 # default to false; checks will change/override this.
 # override with resticbk_force
 resticbk_install: false
+
+# time backup is ran.
+resticbk_timer_time: "OnCalendar=*-*-* 01:01:00"

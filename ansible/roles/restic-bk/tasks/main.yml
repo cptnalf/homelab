@@ -148,6 +148,15 @@
     path: "/etc/systemd/system/restic-backup.timer"
   register: resticbk_backup_timer
 
+- name: update back time.
+  tags:
+    - resticbk
+  when: resticbk_backup_timer.stat.exists
+  replace:
+    path: "/etc/systemd/system/restic-backup.timer"
+    regexp: 'OnCalendar=.+$'
+    replace: 'OnCalendar=*-*-* {{ resticbk_timer_time }}'
+
 - name: start resticbk timer.
   tags:
     - resticbk
