@@ -2,14 +2,14 @@
   tags:
     - knot-dns
   apt_key:
-    url: "https://deb.knot-dns.cz/knot-latest/apt.gpg"
+    url: "https://deb.knot-dns.cz/apt.gpg"
     state: present
 
 - name: knot-dns pkg repos
   tags:
     - knot-dns
   apt_repository:
-    repo: "deb https://deb.knot-dns.cz/knot-latest/ buster main"
+    repo: "deb https://deb.knot-dns.cz/knot-latest/ bullseye main"
     state: present
 
 - name: install knot-dns
