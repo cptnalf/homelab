@@ -11,7 +11,7 @@ amd64:
         - /root
         - /home/        
       promtail_config_clients:
-        - url: "https://192.168.9.21:3100/loki/api/v1/push"
+        - url: "http://192.168.9.21:3100/loki/api/v1/push"
     
     ## former hosts
     valiant.klingon.alfors.org:
