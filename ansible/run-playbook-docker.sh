@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [  -z "$SSH_AUTH_SOCK" ]; then
+  echo "need to start ssh-agent"
+  echo "eg: tick ssh-agent tick"
+  exit
+fi
+
 docker run --rm -it --name ansible-run \
   -v $(pwd):/ansible \
   -v ~/.ssh/id_ecdsa:/root/.ssh/id_ecdsa \
