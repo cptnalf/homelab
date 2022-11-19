@@ -113,7 +113,7 @@ servers:
 
 dhcp:
   hosts:
-    korana.klingon.alfors.org:
+    #korana.klingon.alfors.org:
     defiant.klingon.alfors.org:
     bortas.klingon.alfors.org:
 

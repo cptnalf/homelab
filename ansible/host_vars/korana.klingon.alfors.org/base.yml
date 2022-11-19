@@ -11,7 +11,7 @@ dhcp_global_broadcast_address: 192.168.9.255
 dhcp_global_domain_name: klingon.alfors.org
 dhcp_global_domain_name_servers:
   - 192.168.9.5
-  - 192.168.9.6
+  - 192.168.9.7
 
 dhcp_global_includes:
   - extra_opts.conf
@@ -34,7 +34,7 @@ dhcp_subnets:
     domain_search: klingon.alfors.org
     domain_name_servers:
       - 192.168.9.5
-      - 192.168.9.6
+      - 192.168.9.7
 
     routers: 192.168.9.1
 
