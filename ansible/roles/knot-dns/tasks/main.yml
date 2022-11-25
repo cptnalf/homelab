@@ -1,15 +1,31 @@
-- name: knot-dns key
-  tags:
-    - knot-dns
-  apt_key:
-    url: "https://deb.knot-dns.cz/apt.gpg"
-    state: present
 
+# check for key at /usr/share/keyrings/knot-dns.cz/apt.key
+# maybe check that the fingerprint matches?
+# mk dir/pull key if necessary.
+
+
+## remove old repo, install new repo.
 - name: knot-dns pkg repos
   tags:
     - knot-dns
   apt_repository:
     repo: "deb https://deb.knot-dns.cz/knot-latest/ bullseye main"
+    state: absent
+
+- name: grab new key for knot-dns
+  tags:
+    - knot-dns
+  get_url:
+    url: "https://deb.knot-dns.cz/apt.gpg"
+    dest: /usr/share/keyrings/knot-dns.cz-apt.gpg
+    mode: '0644'
+    force: false
+
+- name: add new repo for knotdns
+  tags:
+    - knot-dns
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/knot-dns.cz-apt.gpg] https://deb.knot-dns.cz/knot-latest/ bullseye main"
     state: present
 
 - name: install knot-dns
