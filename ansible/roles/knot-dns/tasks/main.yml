@@ -1,7 +1,12 @@
-
 # check for key at /usr/share/keyrings/knot-dns.cz/apt.key
 # maybe check that the fingerprint matches?
 # mk dir/pull key if necessary.
+- name: check key config.
+  tags:
+    - knot-dns
+  stat:
+    path: /user/share/keyrings/knot-dns.cz-apt.gpg
+  register: knot_dns_keyringapt
 
 
 ## remove old repo, install new repo.
@@ -15,6 +20,7 @@
 - name: grab new key for knot-dns
   tags:
     - knot-dns
+  when: not knot_dns_keyringapt.stat.exists
   get_url:
     url: "https://deb.knot-dns.cz/apt.gpg"
     dest: /usr/share/keyrings/knot-dns.cz-apt.gpg
