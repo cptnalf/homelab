@@ -5,7 +5,7 @@
   tags:
     - knot-dns
   stat:
-    path: /user/share/keyrings/knot-dns.cz-apt.gpg
+    path: /usr/share/keyrings/knot-dns.cz-apt.gpg
   register: knot_dns_keyringapt
 
 
