@@ -33,4 +33,28 @@
     group: root
     mode: 0600
 
+- name: pull the new container
+  tags:
+    - portainer_agent.pull
+  become: True
+  shell:
+    cmd: "docker compose pull"
+    chdir: "{{ portainer_agent_dcpath }}"
+
+- name: stop the old container
+  tags:
+    - portainer_agent.stop
+  become: True
+  shell:
+    cmd: "docker compose down"
+    chdir: "{{ portainer_agent_dcpath }}"
+
+- name: start the new container
+  tags:
+    - portainer_agent.start
+  become: True
+  shell:
+    cmd: "docker compose up -d"
+    chdir: "{{ portainer_agent_dcpath }}"
+
 # start docker env here.
