@@ -42,7 +42,7 @@ amd64:
     base_disk_monitoring: false
     base_dist_upgrade: false
 
-    docker_compose_sha256: "36d1728ce001c7f021294be43bdfa3f508038bb00886c34b0794f7731cc9bf4b"
+    docker_compose_sha256: "895e20812231543eae9f6b98ef9395327f4f21f1f31fa51fc252d21415802dda"
     node_exporter_sha256: "e77ff1b0a824a4e13f82a35d98595fe526849c09e3480d0789a56b72242d2abc"
     node_exporter_extra_options: "--no-collector.mdadm"
     restic_sha256: "c8da7350dc334cd5eaf13b2c9d6e689d51e7377ba1784cc6d65977bd44ee1165"
@@ -100,7 +100,7 @@ arm64:
     base_dist_upgrade: false
     node_exporter_sha256: "0b20aa75385a42857a67ee5f6c7f67b229039a22a49c5c61c33f071356415b59"
     node_exporter_extra_options: ""
-    docker_compose_sha256: "a2c9819115df18ada4e6a68be37f6515121984189d379456bdfd53058e07128b"
+    docker_compose_sha256: "fcc2a21588907a7e6d9aa83538f134d2916f7a756cf391e5ce11b9d67bc4aad0"
     restic_sha256: "24c7ca3fe6905b3a493a67237ff081ba9e11abfb27dcb73f18d0a4595926c35d"
     promtail_config_clients:
       - url: "https://loki.klingon.alfors.org/loki/api/v1/push"

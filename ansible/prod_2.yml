@@ -38,7 +38,7 @@ amd64:
     host_golang_arch: "amd64"
     base_disk_monitoring: false
     base_dist_upgrade: false
-    docker_compose_sha256: "0b20aa75385a42857a67ee5f6c7f67b229039a22a49c5c61c33f071356415b59"
+    docker_compose_sha256: "895e20812231543eae9f6b98ef9395327f4f21f1f31fa51fc252d21415802dda"
     node_exporter_sha256: "e77ff1b0a824a4e13f82a35d98595fe526849c09e3480d0789a56b72242d2abc"
     restic_sha256: "c8da7350dc334cd5eaf13b2c9d6e689d51e7377ba1784cc6d65977bd44ee1165"
 

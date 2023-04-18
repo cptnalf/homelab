@@ -10,7 +10,7 @@ armv7:
     node_exporter_extra_options: "--no-collector.mdadm --no-collector.schedstat"
     node_exporter_use_textfile: true
     node_exporter_sha256: "6d8961007b0b5b5005f03f5ffa37d3c7dcaa05efba06b6fa3bf80892b1c106a1"
-    docker_compose_sha256: "22cfe5b2eab86a4832f328049cafacc8e7d76c12185ea7bdff7e7c7ce42f5f10"
+    docker_compose_sha256: "4c8948696831fde2992e82dfcb505c5d6e4a56df9d759cd39a1dee6b6cded1c0"
     restic_sha256: "35396671b32a78b457168a6413a2e0c7818e8ae740905eb273c0198f051e930f"
 
 server:
