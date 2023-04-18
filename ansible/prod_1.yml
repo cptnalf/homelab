@@ -13,6 +13,24 @@ amd64:
       promtail_config_clients:
         - url: "http://192.168.9.21:3100/loki/api/v1/push"
     
+    maht-ha:
+      base_custom_packages_install: true
+      base_custom_packages:
+        - nfs-common
+        - vainfo
+        - intel-gpu-tools
+        - firmware-linux
+        - zfs-dkms
+
+
+    192.168.9.129:
+      base_custom_packages_install: true
+      base_custom_packages:
+        - nfs-common
+        - vainfo
+        - intel-gpu-tools
+        - firmware-linux
+
     ## former hosts
     valiant.klingon.alfors.org:
     # app server
