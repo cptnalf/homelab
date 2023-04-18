@@ -16,3 +16,7 @@ armv7:
 server:
   hosts:
     wigwag.klingon.alfors.org:
+
+dockers:
+  hosts:
+    wigwag.klingon.alfors.org:
