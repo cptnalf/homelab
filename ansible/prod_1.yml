@@ -9,10 +9,17 @@ amd64:
         - /etc/knot/
         - /etc/knot-resolver
         - /root
-        - /home/        
+        - /home/
       promtail_config_clients:
         - url: "http://192.168.9.21:3100/loki/api/v1/push"
-    
+      base_custom_packages_install: true
+      base_custom_packages:
+        - intel-gpu-tools
+        - nfs-common
+        - vainfo
+        - firmware-linux
+        - zfs-dkms
+
     maht-ha:
       base_custom_packages_install: true
       base_custom_packages:
@@ -20,17 +27,17 @@ amd64:
         - vainfo
         - intel-gpu-tools
         - firmware-linux
-        - zfs-dkms
+      resticbk_timer_time: "03:02:00"
 
-
-    192.168.9.129:
+    neghvar:
       base_custom_packages_install: true
       base_custom_packages:
         - nfs-common
         - vainfo
         - intel-gpu-tools
         - firmware-linux
-
+      resticbk_timer_time: "03:29:00"
+      
     ## former hosts
     valiant.klingon.alfors.org:
     # app server
