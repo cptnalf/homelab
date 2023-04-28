@@ -1,0 +1,16 @@
+plex_nfs_base_dir: /pegasus
+plex_nfs_dirs:
+  - data-t02
+  - data2-t02
+
+plex_nfs_server: "192.168.9.22"
+
+plex_nfs_shares:
+  - { nfs: "/data/t02", target: "data-t02" }
+  - { nfs: "/data2/t02", target: "data2-t02" }
+
+plex_service_base_dir: /srv/services
+plex_service_dirs:
+  - config
+  - transcode
+

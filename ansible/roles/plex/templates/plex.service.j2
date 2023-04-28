@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Start Plex after nfs has mounted.
+RequiresMountsFor={% for dir in plex_nfs_dirs %}{{ plex_nfs_base_dir }}/{{ dir }}{{ "," if not loop.last else "" }}{% endfor %}
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker start plex
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+- hosts: bortas.klingon.alfors.org
+  roles:
+    - base
+    - docker
+    - docker-compose
+    - node_exporter
+    - restic
+    - restic-bk
+    - portainer_agent
+    - knot-dns
+    - knot-resolver
+    - bertvv.dhcp
+

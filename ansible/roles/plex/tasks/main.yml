@@ -1,0 +1,108 @@
+- name: check pegasus directory
+  tags:
+    - plex
+  stat:
+    path: "{{ plex_nfs_base_dir }}"
+  register: plex_nfs_base_dir_res
+
+- name: check plex nfs media mount points under base dir
+  tags:
+    - plex
+  when: plex_nfs_base_dir_res.stat.exists
+  stat:
+    path: {{ plex_nfs_base_dir }}/{{ item }}
+  with_items: "{{ plex_nfs_dirs }}"
+  register: plex_nfs_dirs_res
+
+- name: make plex nfs base dir
+  tags:
+    - plex
+  when: not plex_nfs_base_dir_res.stat.exists
+  file:
+    path: "{{ plex_nfs_base_dir }}"
+    state: directory
+    mode: 0755
+
+- name: make plex nfs media dirs
+  tags:
+    - plex
+  when: not plex_nfs_base_dir_res.stat.exists
+  file:
+    path: "{{ plex_nfs_base_dir }}/{{ item }}"
+    state: directory
+    mode: 0755
+  with_items: "{{ plex_nfs_dirs }}"
+
+- name: mount nfs shares.
+  ansible.posix.mount:
+    path: {{ plex_nfs_base_dir }}/{{ item.target }}
+    src: {{ plex_nfs_server }}:{{ item.nfs }}
+    opts: defaults,nofail
+    fstype: nfs4
+    state: present
+  with_items: "{{ plex_nfs_shares }}"
+
+- name: check for plex service directories
+  tags:
+    - plex
+  stat:
+    path: "{{ plex_service_base_dir }}"
+  register: plex_svcbasedir_checked
+
+- name: make plex service base dir
+  tags:
+    - plex
+  when: not plex_svcbasedir_checked.stat.exists
+  file:
+    path: "{{ plex_service_base_dir }}"
+    state: directory
+    mode: 0755
+    owner: chiefengineer
+    group: root
+
+- name: check for plex subdirs
+  tags:
+    - plex
+  stat:
+    path: "{{ plex_service_base_dir }}/plex/{{ item }}"
+  with_items: "{{ plex_service_dirs }}"
+  register: plex_service_dirs_check
+
+- name: make plex service dirs
+  tags:
+    - plex
+  file:
+    path: "{{ plex_service_base_dir }}/plex/{{ item.item }}"
+    state: directory
+    mode: 0755
+    owner: chiefengineer
+    group: chiefengineer
+  with_items: "{{ plex_service_dirs_check.results }}"
+  when: not item.stat.exists
+
+- name: check if plex service exists
+  tags:
+    - plex
+  stat:
+    path: "/etc/systemd/system/plex.service"
+  register: plex_checked
+
+- name: create plex systemd unit
+  tags:
+    - plex
+  when: not plex_checked.stat.exists
+  template:
+    src: plex.service.j2
+    dest: "/etc/systemd/system/plex.service"
+
+- name: reload systemd configurations
+  tags:
+    - plex
+  command: "systemctl daemon-reload"
+
+- name: enable plex systemd service.
+  tags:
+    - plex
+  service:
+    enabled: true
+    name: plex.service
