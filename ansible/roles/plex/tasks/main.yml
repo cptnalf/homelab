@@ -10,7 +10,7 @@
     - plex
   when: plex_nfs_base_dir_res.stat.exists
   stat:
-    path: {{ plex_nfs_base_dir }}/{{ item }}
+    path: "{{ plex_nfs_base_dir }}/{{ item }}"
   with_items: "{{ plex_nfs_dirs }}"
   register: plex_nfs_dirs_res
 
@@ -33,10 +33,13 @@
     mode: 0755
   with_items: "{{ plex_nfs_dirs }}"
 
+# this isn't included by default.
 - name: mount nfs shares.
-  ansible.posix.mount:
-    path: {{ plex_nfs_base_dir }}/{{ item.target }}
-    src: {{ plex_nfs_server }}:{{ item.nfs }}
+  tags:
+    - plex
+  mount:
+    path: "{{ plex_nfs_base_dir }}/{{ item.target }}"
+    src: "{{ plex_nfs_server }}:{{ item.nfs }}"
     opts: defaults,nofail
     fstype: nfs4
     state: present
