@@ -14,7 +14,7 @@ docker run --rm -it --name ansible-run \
   -v ${SSH_AUTH_SOCK}:/root/ssh-agent-file \
   -e SSH_AUTH_SOCK=/root/ssh-agent-file \
   --workdir=/ansible \
-  willhallonline/ansible:2.10-bullseye-slim \
+  willhallonline/ansible:2.12-bullseye-slim \
   ansible-playbook -u chiefengineer $@
 
 # -i prod_1.yml base.yml 
